@@ -1,0 +1,93 @@
+{
+  "name": "gherkin-formatter",
+  "version": "1.0.0",
+  "description": "Tool to format gherkin-ast model to gherkin string",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "npm run clean && npm run compile && npm run copyToDist && npm test -- --coverage && npm run typedoc",
+    "buildUpdate": "npm run compile && npm run copyToDist && npm run postbuild",
+    "copyToDist": "copyfiles -f *.txt *.md package.json dist",
+    "typedoc": "typedoc --mode file --exclude **/bin/**/*.ts --exclude **/cli.ts --out ./docs ./src && touch ./docs/.nojekyll",
+    "clean": "rimraf ./dist ./docs",
+    "test": "jest --coverage",
+    "tslint": "tslint -c tslint.json ./src/**/*.ts ./tests/**/*.ts",
+    "compile": "tsc && npm run tslint",
+    "publish": "npm run build && npm public ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gherking/gherkin-formatter.git"
+  },
+  "keywords": [
+    "Gherkin",
+    "Feature",
+    "Scenario",
+    "Scenario Outline",
+    "Background",
+    "Step",
+    "Examples",
+    "AST"
+  ],
+  "author": "Team GherKing",
+  "contributors": [
+    "Sandor Orosz <os.sandor@gmail.com>"
+  ],
+  "license": "MIT",
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "*.js.map"
+  ],
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/gherking/gherkin-formatter/issues"
+  },
+  "homepage": "https://github.com/gherking/gherkin-formatter#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.0.10",
+    "copyfiles": "^2.1.0",
+    "jest": "^24.8.0",
+    "jest-junit": "^6.4.0",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.18.0",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "gherkin-ast": "^2.0.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.test.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "dist"
+    ],
+    "coverageDirectory": "./coverage",
+    "collectCoverageFrom": [
+      "./src/**/*.ts"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 85,
+        "functions": 85,
+        "lines": 85,
+        "statements": 85
+      }
+    }
+  }
+}
