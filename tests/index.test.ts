@@ -1,7 +1,10 @@
-import { trueFn } from "../src";
+import { format, FormatOptions } from "../src";
+import { Document } from "gherkin-ast";
 
-describe("ts-seed", () => {
+describe("gherkin-formatter", () => {
     test("should pass", () => {
-        expect(trueFn()).toBe(true);
+        const document: Document = new Document("uri");
+        const options: FormatOptions = {lineBreak:"\n"} as FormatOptions; 
+        expect(format(document, options)).toBe("{\"document\":{\"uri\":\"uri\",\"feature\":null},\"options\":{\"lineBreak\":\"\\n\"}}");
     });
 });
