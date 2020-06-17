@@ -1,32 +1,38 @@
-import { Feature, Scenario, ScenarioOutline, Background } from "gherkin-ast";
+import { Background, Feature, Scenario, ScenarioOutline } from "gherkin-ast";
 import { FormatOptions } from "../index";
-import { TagFormatter } from "./tagFormatter";
-import { ScenarioFormatter } from "./scenarioFormatter";
-import { ScenarioOutlineFormatter } from "./scenarioOutlineFormatter";
 import { indent, lines } from "../utils";
-import { BackgroundFormatter } from './backgroundFormatter';
+import { format as formatBackground } from "./backgroundFormatter";
+import { format as formatScenario } from "./scenarioFormatter";
+import { format as formatScenarioOutline } from "./scenarioOutlineFormatter";
+import { format as formatTag } from "./tagFormatter";
 
-export class FeatureFormatter {
-    public static format(obj: Feature, options: Partial<FormatOptions>): string {
-        const l = lines(options);
-        if (obj.tags.length > 0) {
-            l.add(TagFormatter.format(obj.tags, options));
-        }
-        l.add(`${obj.keyword}: ${this.name}`);
-        if (obj.description) {
-            l.add(indent(obj.description));
-        }
-        if (obj.elements.length > 0) {
-            obj.elements.forEach((item: Scenario | ScenarioOutline | Background) => {
-                if (item instanceof Scenario) {
-                    l.add(null, indent(ScenarioFormatter.format(item, options)));
-                } else if(item instanceof ScenarioOutline) {
-                    l.add(null, indent(ScenarioOutlineFormatter.format(item, options)));
-                } else if (item instanceof Background){
-                    l.add(null, indent(BackgroundFormatter.format(item, options)));
-                }
-            });
-        }
-        return l.toString();
+export function format(obj: Feature, options: Partial<FormatOptions>): string {
+    const l = lines(options);
+    if (obj.tags.length > 0) {
+        l.add(formatTag(obj.tags, options));
     }
+    l.add(`${obj.keyword}: ${obj.name}`);
+    if (obj.description) {
+        l.add(indent(obj.description));
+    }
+    if (obj.elements.length > 0) {
+        obj.elements.forEach((item: Scenario | ScenarioOutline | Background) => {
+            // TODO
+            /* if (item instanceof Scenario) {
+                l.add(null, indent(formatScenario(item, options)));
+            } else if (item instanceof ScenarioOutline) {
+                l.add(null, indent(formatScenarioOutline(item, options)));
+            } else if (item instanceof Background) {
+                l.add(null, indent(formatBackground(item, options)));
+            } */
+            if (item.keyword === "Scenario") {
+                l.add(null, indent(formatScenario(item as Scenario, options)));
+            } else if (item.keyword === "Scenario Outline") {
+                l.add(null, indent(formatScenarioOutline(item as ScenarioOutline, options)));
+            } else if (item.keyword === "Background") {
+                l.add(null, indent(formatBackground(item as Background, options)));
+            }
+        });
+    }
+    return l.toString();
 }

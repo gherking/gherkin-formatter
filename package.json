@@ -58,6 +58,10 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
+    "@types/cli-table": "^0.3.0",
+    "@types/color-name": "^1.1.1",
+    "@types/colors": "^1.2.1",
+    "cli-table": "^0.3.1",
     "eol": "^0.9.1",
     "gherkin-ast": "^2.0.1"
   },

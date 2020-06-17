@@ -1,5 +1,5 @@
 import { Document, GherkinDocument } from "gherkin-ast";
-import { GherkinDocumentFormatter } from "./formatters/gherkinDocumentFormatter";
+import { format as formatGherkinDocument } from "./formatters/gherkinDocumentFormatter";
 declare type Eol = "\n" | "\r\n";
 
 export interface FormatOptions {
@@ -25,13 +25,12 @@ export const objectToAST = (obj: GherkinDocument): Document => {
 };
 
 // tslint:disable-next-line:no-any
-export const format = (document: Document|Document[], options?: Partial<FormatOptions>): string | any => {
+export const format = (document: Document, options?: Partial<FormatOptions>): string | any => {
     if (Array.isArray(document)) {
         return document.map((doc) => format(doc, options));
     }
-    if (!(document instanceof Document)) {
+    /* if (!(document instanceof Document)) {
         throw new TypeError(`The passed object is not a GherkinDocument!` + document);
-    }
-    return GherkinDocumentFormatter.format(document, options);
+    } */
+    return formatGherkinDocument(document, options);
 };
-

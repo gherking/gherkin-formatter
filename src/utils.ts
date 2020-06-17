@@ -1,17 +1,16 @@
 "use strict";
 /* tslint:disable:no-any */
 
-const split = require("split-lines");
-const Table = require("cli-table");
-const colors = require("colors/safe");
+import Table from "cli-table";
+import colors = require("colors/safe");
 
 /**
  * @class
  * @extends Table
  */
 class StrippedTable extends Table {
-    constructor(config: any) {
-        super(config);
+    constructor(StrippedTableConfig: any) {
+        super(StrippedTableConfig);
     }
 
     public toString() {
@@ -73,7 +72,8 @@ class Lines {
             this._lines.push("");
         } else {
             texts.forEach((text) => {
-                this._lines.push.apply(this._lines, split(text || ""));
+                text = text || "";
+                this._lines.push.apply(this._lines, text.split(/\r\n|\r|\n/gm));
             });
         }
     }
@@ -105,11 +105,11 @@ class Lines {
      * @returns {string}
      */
     public toString() {
-        let lines = this._lines;
+        let linesToString = this._lines;
         if (this.options.compact) {
-            lines = lines.filter(Boolean);
+            linesToString = linesToString.filter(Boolean);
         }
-        return lines.join(this.options.lineBreak);
+        return linesToString.join(this.options.lineBreak);
     }
 }
 
@@ -133,10 +133,10 @@ export const normalize = (text: any) => {
     if (!text) {
         return "";
     }
-    const lines = exports.lines();
-    lines.add(text);
-    lines.normalize();
-    return lines.toString();
+    const linesInstance = lines();
+    linesInstance.add(text);
+    linesInstance.normalize();
+    return linesInstance.toString();
 };
 
 
@@ -152,9 +152,9 @@ export const toSafeString = (subject: any) => {
 };
 
 /**
-* Creates a new Table object to build tables.
-* @returns {StrippedTable}
-*/
+ * Creates a new Table object to build tables.
+ * @returns {StrippedTable}
+ */
 export const table = () => {
     return new StrippedTable({
         chars: {
@@ -192,10 +192,9 @@ export const config = (options: any) => {
  * @param {number} [indentation] Number of indentations, default: 1
  * @returns {string}
  */
-export const indent = (text: any, indentation = 1) => {
-    // tslint:disable-next-line:no-shadowed-variable
-    const lines = exports.lines();
-    lines.add(text);
-    lines.indent(indentation);
-    return lines.toString();
+export const indent = (text: string, indentation = 1) => {
+    const l = exports.lines();
+    l.add(text);
+    l.indent(indentation);
+    return l.toString();
 };

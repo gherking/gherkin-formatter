@@ -1,11 +1,13 @@
-import { Document } from "gherkin-ast";
-import { format, FormatOptions } from "../src";
+import * as fs from "fs";
+import * as path from "path";
+
+import { format } from "../src";
+const featureAst = require("./testData/base.ast.json");
+const featureFile = fs.readFileSync(path.resolve("tests/testData/base.feature"), "utf8");
+
 
 describe("gherkin-formatter", () => {
-    test("should pass", () => {
-        const document: Document = new Document("uri");
-        const options: FormatOptions = { lineBreak: "\n" } as FormatOptions;
-        expect(format(document, options))
-            .toBe("{\"document\":{\"uri\":\"uri\",\"feature\":null},\"options\":{\"lineBreak\":\"\\n\"}}");
-    });
+  it("should format simple document", () => {
+    expect(format(featureAst).split(/\r?\n/g)).toEqual(featureFile.split(/\r?\n/g));
+  });
 });

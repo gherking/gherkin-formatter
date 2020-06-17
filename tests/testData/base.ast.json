@@ -1,0 +1,283 @@
+{
+    "uri": "tests/data/che.feature",
+    "feature": {
+        "keyword": "Feature",
+        "name": "Hello world",
+        "description": "As a smth\nI want to do smth\nSo that I am smth",
+        "language": "en",
+        "elements": [
+            {
+                "keyword": "Background",
+                "name": "",
+                "description": "",
+                "steps": [
+                    {
+                        "keyword": "Given",
+                        "text": "this is a given step",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "this is a given step too",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "When",
+                        "text": "this is a when step",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "this is a when step too",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "Then",
+                        "text": "it should be a then step",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "it should be a then step too",
+                        "dataTable": null,
+                        "docString": null
+                    }
+                ]
+            },
+            {
+                "keyword": "Scenario",
+                "name": "Name of scenario",
+                "description": "Description of the scenario",
+                "steps": [
+                    {
+                        "keyword": "Given",
+                        "text": "this is a given step",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "this is a given step too",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "When",
+                        "text": "this is a when step with data table",
+                        "dataTable": {
+                            "rows": [
+                                {
+                                    "cells": [
+                                        {
+                                            "value": "val1"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "cells": [
+                                        {
+                                            "value": "val2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "cells": [
+                                        {
+                                            "value": "val3"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "this is a when step with data table too",
+                        "dataTable": {
+                            "rows": [
+                                {
+                                    "cells": [
+                                        {
+                                            "value": "col1"
+                                        },
+                                        {
+                                            "value": "col2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "cells": [
+                                        {
+                                            "value": "val1"
+                                        },
+                                        {
+                                            "value": "val2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "cells": [
+                                        {
+                                            "value": "val3"
+                                        },
+                                        {
+                                            "value": "val4"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "this is a when step with doc string",
+                        "dataTable": null,
+                        "docString": {
+                            "content": "Hello world\nHello World\nhello World\nhello world",
+                            "delimiter": "\"\"\""
+                        }
+                    },
+                    {
+                        "keyword": "Then",
+                        "text": "it should be a then step",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "it should be a then step too",
+                        "dataTable": null,
+                        "docString": null
+                    }
+                ],
+                "tags": [
+                    {
+                        "name": "@tag2"
+                    },
+                    {
+                        "name": "@tag3"
+                    }
+                ],
+                "examples": []
+            },
+            {
+                "keyword": "Scenario Outline",
+                "name": "Name of background <key>",
+                "description": "",
+                "steps": [
+                    {
+                        "keyword": "Given",
+                        "text": "this is a given step",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "this is a given step too",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "When",
+                        "text": "this is a when step <key>",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "this is a when step too",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "Then",
+                        "text": "it should be a then step",
+                        "dataTable": null,
+                        "docString": null
+                    },
+                    {
+                        "keyword": "And",
+                        "text": "it should be a then step too",
+                        "dataTable": null,
+                        "docString": null
+                    }
+                ],
+                "tags": [
+                    {
+                        "name": "@tag2"
+                    },
+                    {
+                        "name": "@tag(3)"
+                    }
+                ],
+                "examples": [
+                    {
+                        "keyword": "Examples",
+                        "name": "First examples",
+                        "tags": [
+                            {
+                                "name": "@tagE1"
+                            }
+                        ],
+                        "header": {
+                            "cells": [
+                                {
+                                    "value": "key"
+                                }
+                            ]
+                        },
+                        "body": [
+                            {
+                                "cells": [
+                                    {
+                                        "value": "value1"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "keyword": "Examples",
+                        "name": "Second examples",
+                        "tags": [
+                            {
+                                "name": "@tagE2"
+                            }
+                        ],
+                        "header": {
+                            "cells": [
+                                {
+                                    "value": "key"
+                                }
+                            ]
+                        },
+                        "body": [
+                            {
+                                "cells": [
+                                    {
+                                        "value": "value2"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "tags": [
+            {
+                "name": "@tag1"
+            },
+            {
+                "name": "@tag2"
+            }
+        ]
+    }
+}
