@@ -1,15 +1,47 @@
 "use strict";
-/* tslint:disable:no-any */
 
 import Table from "cli-table";
 import colors = require("colors/safe");
+import { FormatOptions } from "./index";
+
+interface TableOptions {
+    chars: Partial<Record<(
+        "top" |
+        "top-mid" |
+        "top-left" |
+        "top-right" |
+        "bottom" |
+        "bottom-mid" |
+        "bottom-left" |
+        "bottom-right" |
+        "left" |
+        "left-mid" |
+        "mid" |
+        "mid-mid" |
+        "right" |
+        "right-mid" |
+        "middle"
+    ), string>>;
+    truncate: string;
+    colors: boolean;
+    colWidths: number[];
+    colAligns: Array<"left" | "middle" | "right">;
+    style: Partial<{
+        "padding-left": number;
+        "padding-right": number;
+        head: string[];
+        border: string[];
+        compact: boolean;
+    }>;
+    head: string[];
+}
 
 /**
  * @class
  * @extends Table
  */
 class StrippedTable extends Table {
-    constructor(StrippedTableConfig: any) {
+    constructor(StrippedTableConfig: Partial<TableOptions>) {
         super(StrippedTableConfig);
     }
 
@@ -42,16 +74,20 @@ const INDENTATION = "  ";
  * Object to build a text file, from lines.
  * @class
  */
-class Lines {
-    private options: any;
+export class Lines {
+    private options: Partial<FormatOptions>;
     // tslint:disable-next-line:variable-name
-    private _lines: any[];
+    private _lines: string[];
+
+    get lines(): string[] {
+        return this._lines;
+    }
 
     /**
      * @constructor
      * @param {AssemblerConfig} [options]
      */
-    constructor(options: any) {
+    constructor(options: Partial<FormatOptions>) {
         /** @member {boolean} */
         this.options = config(options);
         /**
@@ -67,7 +103,7 @@ class Lines {
      * it will be an empty line
      * @param {...string|*} [texts]
      */
-    public add(...texts: any[]) {
+    public add(...texts: string[]): void {
         if (!texts.length) {
             this._lines.push("");
         } else {
@@ -82,7 +118,7 @@ class Lines {
      * Indents all non-empty lines with the given number of indentation.
      * @param {number} [indentation] Number of indentations, default: 1
      */
-    public indent(indentation = 1) {
+    public indent(indentation: number = 1): void {
         indentation = Math.max(indentation, 0);
         if (indentation) {
             this._lines = this._lines.map((line) => {
@@ -96,7 +132,7 @@ class Lines {
      * i.e. trims multiple trailing, leading
      * and inner spaces too.
      */
-    public normalize() {
+    public normalize(): void {
         this._lines = this._lines.map((line) => line.trim().replace(/\s+/g, " "));
     }
 
@@ -104,7 +140,7 @@ class Lines {
      * Returns the whole text file content.
      * @returns {string}
      */
-    public toString() {
+    public toString(): string {
         let linesToString = this._lines;
         if (this.options.compact) {
             linesToString = linesToString.filter(Boolean);
@@ -118,7 +154,7 @@ class Lines {
  * @param {AssemblerConfig} [options]
  * @returns {Lines}
  */
-export const lines = (options?: any) => {
+export const lines = (options?: Partial<FormatOptions>): Lines => {
     return new Lines(options);
 };
 
@@ -129,7 +165,7 @@ export const lines = (options?: any) => {
  * @param {string} [text]
  * @returns {string}
  */
-export const normalize = (text: any) => {
+export const normalize = (text?: string): string => {
     if (!text) {
         return "";
     }
@@ -140,14 +176,14 @@ export const normalize = (text: any) => {
 };
 
 
-export const replaceAll = (subject: any, key: RegExp, value: any) => {
+export const replaceAll = (subject: string, key: RegExp, value: string) => {
     if (!(key instanceof RegExp)) {
         key = new RegExp(key, "g");
     }
     return (subject || "").replace(key, value);
 };
 
-export const toSafeString = (subject: any) => {
+export const toSafeString = (subject: string) => {
     return (subject || "").replace(/\s/g, "_");
 };
 
@@ -155,7 +191,7 @@ export const toSafeString = (subject: any) => {
  * Creates a new Table object to build tables.
  * @returns {StrippedTable}
  */
-export const table = () => {
+export const table = (): StrippedTable => {
     return new StrippedTable({
         chars: {
             "top": "",
@@ -174,14 +210,14 @@ export const table = () => {
             "right-mid": "",
             "middle": "|",
         },
-        styles: {
+        style: {
             border: [],
             head: [],
         },
     });
 };
 
-export const config = (options: any) => {
+export const config = (options: Partial<FormatOptions>) => {
     return Object.assign({}, DEFAULT_OPTIONS, options || {});
 };
 
@@ -192,7 +228,7 @@ export const config = (options: any) => {
  * @param {number} [indentation] Number of indentations, default: 1
  * @returns {string}
  */
-export const indent = (text: string, indentation = 1) => {
+export const indent = (text: string, indentation: number = 1): string => {
     const l = exports.lines();
     l.add(text);
     l.indent(indentation);

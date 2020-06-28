@@ -5,13 +5,13 @@ import { config, lines } from "../utils";
 export function format(tags: Tag[], options: Partial<FormatOptions>): string {
     options = config(options);
     if (!options.oneTagPerLine) {
-        // TODO ?
+        // TODO
         // return tags.join(" ");
         return tags.map((tag) => tag.name).join(" ");
     }
     const l = lines(options);
     tags.forEach((tag) => {
-        // TODO ?
+        // TODO
         // l.add(tag.toString());
         l.add(tag.name);
     });

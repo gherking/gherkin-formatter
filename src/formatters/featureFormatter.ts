@@ -17,20 +17,12 @@ export function format(obj: Feature, options: Partial<FormatOptions>): string {
     }
     if (obj.elements.length > 0) {
         obj.elements.forEach((item: Scenario | ScenarioOutline | Background) => {
-            // TODO
-            /* if (item instanceof Scenario) {
+            if (item instanceof Scenario) {
                 l.add(null, indent(formatScenario(item, options)));
             } else if (item instanceof ScenarioOutline) {
                 l.add(null, indent(formatScenarioOutline(item, options)));
             } else if (item instanceof Background) {
                 l.add(null, indent(formatBackground(item, options)));
-            } */
-            if (item.keyword === "Scenario") {
-                l.add(null, indent(formatScenario(item as Scenario, options)));
-            } else if (item.keyword === "Scenario Outline") {
-                l.add(null, indent(formatScenarioOutline(item as ScenarioOutline, options)));
-            } else if (item.keyword === "Background") {
-                l.add(null, indent(formatBackground(item as Background, options)));
             }
         });
     }
