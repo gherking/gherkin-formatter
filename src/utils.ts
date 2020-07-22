@@ -128,15 +128,6 @@ export class Lines {
     }
 
     /**
-     * Normalizes the given text,
-     * i.e. trims multiple trailing, leading
-     * and inner spaces too.
-     */
-    public normalize(): void {
-        this._lines = this._lines.map((line) => line.trim().replace(/\s+/g, " "));
-    }
-
-    /**
      * Returns the whole text file content.
      * @returns {string}
      */
@@ -156,35 +147,6 @@ export class Lines {
  */
 export const lines = (options?: Partial<FormatOptions>): Lines => {
     return new Lines(options);
-};
-
-/**
- * Normalizes the given text,
- * i.e. trims multiple trailing, leading
- * and inner spaces too.
- * @param {string} [text]
- * @returns {string}
- */
-export const normalize = (text?: string): string => {
-    if (!text) {
-        return "";
-    }
-    const linesInstance = lines();
-    linesInstance.add(text);
-    linesInstance.normalize();
-    return linesInstance.toString();
-};
-
-
-export const replaceAll = (subject: string, key: RegExp, value: string) => {
-    if (!(key instanceof RegExp)) {
-        key = new RegExp(key, "g");
-    }
-    return (subject || "").replace(key, value);
-};
-
-export const toSafeString = (subject: string) => {
-    return (subject || "").replace(/\s/g, "_");
 };
 
 /**

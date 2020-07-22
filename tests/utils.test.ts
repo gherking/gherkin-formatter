@@ -1,25 +1,8 @@
 "use strict";
 
-import { indent, lines, Lines, normalize } from "../src/utils";
+import { indent, lines, Lines } from "../src/utils";
 
 describe("Utils", () => {
-    describe(".normalize()", () => {
-        it("should replace multiple inline spaces", () => {
-            expect(normalize("some     text")).toEqual("some text");
-        });
-
-        it("should replace leading and trailing spaces", () => {
-            expect(normalize("  some text  ")).toEqual("some text");
-        });
-
-        it("should handle multi-line texts too", () => {
-            expect(normalize("  some\n  text  again  ")).toEqual("some\ntext again");
-        });
-
-        it("should handle if not argument is passed", () => {
-            expect(normalize()).toEqual("");
-        });
-    });
 
     describe(".indent()", () => {
         it("should indent one-line text", () => {

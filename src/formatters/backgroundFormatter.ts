@@ -5,7 +5,7 @@ import { format as formatStep } from "./stepFormatter";
 
 export function format(background: Background, options: Partial<FormatOptions>): string {
     const l = lines(options);
-    l.add(`${background.keyword}:${this.name ? " " + this.name : ""}`);
+    l.add(`${background.keyword}:${background.name ? " " + background.name : ""}`);
     if (background.description) {
         l.add(background.description, null);
     }

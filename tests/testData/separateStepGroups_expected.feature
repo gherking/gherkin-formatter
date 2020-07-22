@@ -7,6 +7,12 @@ Feature: Hello world
   Background:
     Given this is a given step
     And this is a given step too
+
+    When this is a when step
+    And this is a when step too
+    Then it should be a then step
+    And it should be a then step too
+
     When this is a when step
     And this is a when step too
     Then it should be a then step
@@ -18,6 +24,7 @@ Feature: Hello world
 
     Given this is a given step
     And this is a given step too
+
     When this is a when step with data table
       | val1 |
       | val2 |
@@ -35,22 +42,3 @@ Feature: Hello world
       """
     Then it should be a then step
     And it should be a then step too
-
-  @tag2 @tag(3)
-  Scenario Outline: Name of background <key>
-    Given this is a given step
-    And this is a given step too
-    When this is a when step <key>
-    And this is a when step too <key2>
-    Then it should be a then step
-    And it should be a then step too
-
-  @tagE1
-    Examples: First examples
-      | key    | key2   |
-      | value1 | value2 |
-      | value3 | value4 |
-
-    Examples: Second examples
-      | key    |
-      | value2 |

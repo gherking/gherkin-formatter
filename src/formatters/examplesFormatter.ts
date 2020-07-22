@@ -1,7 +1,7 @@
-import { Examples } from "gherkin-ast";
+import { Examples, TableRow } from "gherkin-ast";
 import { FormatOptions } from "../index";
-import { indent, lines, table } from "../utils";
-import { toArray as rowToArray } from "./tableRowFormatter";
+import { indent, lines } from "../utils";
+import { format as formatTableRows } from "./tableRowFormatter";
 import { format as formatTag } from "./tagFormatter";
 
 export function format(examples: Examples, options: Partial<FormatOptions>): string {
@@ -12,12 +12,9 @@ export function format(examples: Examples, options: Partial<FormatOptions>): str
     }
     l.add(indent(`${examples.keyword}: ${examples.name}`));
 
-    const t = table();
-    t.push(rowToArray(examples.header));
-    examples.body.forEach((row) => {
-        t.push(rowToArray(row));
-    });
-    l.add(indent(t.toString(), 2));
+    const tableRows: TableRow[] = [examples.header, ...examples.body];
+
+    l.add(indent(formatTableRows(tableRows), 2));
 
     return l.toString();
 }

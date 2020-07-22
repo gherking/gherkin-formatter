@@ -6,8 +6,10 @@ export function toArray(tableRow: TableRow) {
     return tableRow.cells.map((cell) => formatTableCell(cell));
 }
 
-export function format(tableRow: TableRow): string {
+export function format(tableRows: TableRow[]): string {
     const t = table();
-    t.push(toArray(tableRow));
+    tableRows.forEach((row) => {
+        t.push(toArray(row));
+    });
     return t.toString();
 }
