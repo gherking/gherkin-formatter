@@ -14,7 +14,7 @@ export function format(examples: Examples, options: Partial<FormatOptions>): str
 
     const tableRows: TableRow[] = [examples.header, ...examples.body];
 
-    l.add(indent(formatTableRows(tableRows), 2));
+    l.add(indent(formatTableRows(tableRows), 4));
 
     return l.toString();
 }

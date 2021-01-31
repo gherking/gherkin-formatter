@@ -68,7 +68,7 @@ const DEFAULT_OPTIONS = {
     indentation: "  ",
 };
 
-const INDENTATION = "  ";
+const INDENTATION = " ";
 
 /**
  * Object to build a text file, from lines.
@@ -103,7 +103,7 @@ export class Lines {
      * it will be an empty line
      * @param {...string|*} [texts]
      */
-    public add(...texts: string[]): void {
+    public add(...texts: string[]): Lines {
         if (!texts.length) {
             this._lines.push("");
         } else {
@@ -112,19 +112,21 @@ export class Lines {
                 this._lines.push.apply(this._lines, text.split(/\r\n|\r|\n/gm));
             });
         }
+        return this;
     }
 
     /**
      * Indents all non-empty lines with the given number of indentation.
      * @param {number} [indentation] Number of indentations, default: 1
      */
-    public indent(indentation: number = 1): void {
+    public indent(indentation: number = 2): Lines {
         indentation = Math.max(indentation, 0);
         if (indentation) {
             this._lines = this._lines.map((line) => {
                 return line ? INDENTATION.repeat(indentation) + line : "";
             });
         }
+        return this;
     }
 
     /**
@@ -185,14 +187,11 @@ export const config = (options: Partial<FormatOptions>) => {
 
 /**
  * Indents the given text with
- * given number of space pairs.
+ * given number of space.
  * @param {string} text Text to indent
  * @param {number} [indentation] Number of indentations, default: 1
  * @returns {string}
  */
-export const indent = (text: string, indentation: number = 1): string => {
-    const l = exports.lines();
-    l.add(text);
-    l.indent(indentation);
-    return l.toString();
+export const indent = (text: string, indentation: number = 2): string => {
+    return lines().add(text).indent(indentation).toString();
 };

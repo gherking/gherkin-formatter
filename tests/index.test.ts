@@ -21,6 +21,8 @@ describe("gherkin-formatter", () => {
     expected.background = readFile("background");
     toFormat.emptyFeature = await parse("emptyFeature_toParse");
     expected.emptyFeature = readFile("emptyFeature_toParse");
+    toFormat.emptyRule = await parse("emptyRule_toParse");
+    expected.emptyRule = readFile("emptyRule_toParse");
     toFormat.oneTagPerLine = await parse("newLineOption_toParse");
     expected.oneTagPerLine = readFile("newLineOption_expected");
     toFormat.separateStepGroups = await parse("separateStepGroups_toParse");
@@ -35,16 +37,14 @@ describe("gherkin-formatter", () => {
     expect(() => format({uri: "string", feature} as Document))
     .toThrow(/The passed object is not a GherkinDocument!/);
   });
-  it("should format array of documents", async () => {
-    format(toFormat.base).forEach((res: string) => {
-      expect(res.split(/\r?\n/g)).toEqual(expected.base.split(/\r?\n/g));
-    });
-  });
   it("should format background without step but with description", async () => {
     expect(format(toFormat.background[0]).split(/\r?\n/g)).toEqual(expected.background.split(/\r?\n/g));
   });
   it("should format feature without elements or description", async () => {
     expect(format(toFormat.emptyFeature[0]).split(/\r?\n/g)).toEqual(expected.emptyFeature.split(/\r?\n/g));
+  });
+  it("should format rule without elements or description", async () => {
+    expect(format(toFormat.emptyRule[0]).split(/\r?\n/g)).toEqual(expected.emptyRule.split(/\r?\n/g));
   });
   it("should break tags to new lines", async () => {
     expect(format(toFormat.oneTagPerLine[0], { oneTagPerLine: true }).split(/\r?\n/g))

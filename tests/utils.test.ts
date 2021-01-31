@@ -6,11 +6,11 @@ describe("Utils", () => {
 
     describe(".indent()", () => {
         it("should indent one-line text", () => {
-            expect(indent("text to indent", 2)).toEqual("    text to indent");
+            expect(indent("text to indent", 4)).toEqual("    text to indent");
         });
 
         it("should indent multi-line text", () => {
-            expect(indent("text to indent\nagain", 2)).toEqual("    text to indent\n    again");
+            expect(indent("text to indent\nagain", 4)).toEqual("    text to indent\n    again");
         });
 
         it("should not indent empty lines", () => {
@@ -71,18 +71,16 @@ describe("Utils", () => {
 
         describe(".toString()", () => {
             it("should handle simple line", () => {
-                l.add("new line");
-                expect(l.toString()).toEqual("new line");
+                expect(l.add("new line").toString()).toEqual("new line");
             });
 
             it("should handle multiple lines too", () => {
-                l.add("new line\nother line");
-                expect(l.toString()).toEqual("new line\nother line");
+                expect(l.add("new line\nother line").toString()).toEqual("new line\nother line");
             });
 
             it("should handle empty lines", () => {
-                l.add("new line", null, "other line", undefined, "another line");
-                expect(l.toString()).toEqual("new line\n\nother line\n\nanother line");
+                expect(l.add("new line", null, "other line", undefined, "another line").toString())
+                    .toEqual("new line\n\nother line\n\nanother line");
             });
         });
     });

@@ -4,7 +4,5 @@ import { lines } from "../utils";
 import { format as formatTableRows } from "./tableRowFormatter";
 
 export function format(dataTable: DataTable, options: Partial<FormatOptions>): string {
-    const l = lines(options);
-    l.add(formatTableRows(dataTable.rows));
-    return l.toString();
+    return lines(options).add(formatTableRows(dataTable.rows)).toString();
 }

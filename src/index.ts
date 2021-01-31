@@ -11,10 +11,7 @@ export interface FormatOptions {
 }
 
 // tslint:disable-next-line:no-any
-export const format = (document: Document|Document[], options?: Partial<FormatOptions>): string | any => {
-    if (Array.isArray(document)) {
-        return document.map((doc) => format(doc, options));
-    }
+export const format = (document: Document, options?: Partial<FormatOptions>): string | any => {
     if (!(document instanceof Document)) {
         throw new TypeError(`The passed object is not a GherkinDocument!` + document);
     }

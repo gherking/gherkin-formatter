@@ -1,1 +1,1 @@
-Feature: No description
+Feature:
