@@ -1119,10 +1119,10 @@ decode-uri-component@^0.2.0:
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
 
-deep-eql@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/deep-eql/-/deep-eql-3.0.1.tgz#dfc9404400ad1c8fe023e7da1df1c147c4b444df"
-  integrity sha512-+QeIQyN5ZuO+3Uk5DYh6/1eKO0m0YmJFGNmFHGACpf1ClL1nmlV/p4gNgbl2pJGxgXb4faqo6UE+M5ACEMyVcw==
+deep-eql@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/deep-eql/-/deep-eql-4.0.0.tgz#c70af2713a4e18d9c2c1203ff9d11abbd51c8fbd"
+  integrity sha512-GxJC5MOg2KyQlv6WiUF/VAnMj4MWnYiXo4oLgeptOELVoknyErb4Z8+5F/IM/K4g9/80YzzatxmWcyRwUseH0A==
   dependencies:
     type-detect "^4.0.0"
 
@@ -1538,12 +1538,12 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-gherkin-ast@3.0.0, gherkin-ast@^2.0.1:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/gherkin-ast/-/gherkin-ast-3.0.0.tgz#45c465bf41be23b7be1bb409992e4a5b1f523621"
-  integrity sha512-SXF3YUGe3YV2MgwKzTAzBkWksX9PSc5fwAJPtA2+rbirHglfpTOYdlujKdnSvm+LitBrpmmt2xwrSaqM9+aJiQ==
+gherkin-ast@3.0.2, gherkin-ast@^2.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/gherkin-ast/-/gherkin-ast-3.0.2.tgz#71bd7b1fae517e85e6ff648340100457d72a46d7"
+  integrity sha512-lQZF/v1nHiefjxkXZzJ2Y986RKnd4xXPF2N2WbOwCf4BSGw2yxZ9NQDP9DmVQKydkErSSCnwYJhfET6+kyAyrA==
   dependencies:
-    object-set-type "^1.0.1"
+    object-set-type "^2.0.1"
 
 gherkin-formatter@^0.1.0:
   version "0.1.0"
@@ -2774,12 +2774,12 @@ object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
-object-set-type@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/object-set-type/-/object-set-type-1.0.1.tgz#c7868429fb90aa25e0527451f3370b2d38a157cf"
-  integrity sha1-x4aEKfuQqiXgUnRR8zcLLTihV88=
+object-set-type@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/object-set-type/-/object-set-type-2.0.1.tgz#56ca843c93d91359f8b2f02c87a9564ad5c6c94d"
+  integrity sha512-ak3Vdl9lb0d0+TPnYyZzETMw3U7kysf66Vol8ybQ55N2mz0OFApR74pXFXgRSbZN8C68IM2V53snihMwjK/g5A==
   dependencies:
-    deep-eql "^3.0.1"
+    deep-eql "^4.0.0"
 
 object-visit@^1.0.0:
   version "1.0.1"
