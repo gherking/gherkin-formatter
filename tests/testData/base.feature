@@ -8,6 +8,8 @@ Feature: Hello world
     Description of the rule
 
     Background:
+    Description
+
       Given this is a given step
       And this is a given step too
       When this is a when step
@@ -38,6 +40,14 @@ Feature: Hello world
         """
       Then it should be a then step
       And it should be a then step too
+
+    Scenario: Name of scenario
+    Description of the scenario
+
+      Given this is a given step
+      And this is a given step too
+      When this is a when step with data table
+      Then it should be a then step
 
     @tag2 @tag(3)
     Scenario Outline: Name of scenario outline

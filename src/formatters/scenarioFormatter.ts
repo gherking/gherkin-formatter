@@ -3,8 +3,12 @@ import { FormatOptions } from "../index";
 import { config, indent, lines } from "../utils";
 import { format as formatStep } from "./stepFormatter";
 import { format as formatTag } from "./tagFormatter";
+import { getDebugger } from '../debug';
+
+const debug = getDebugger("scenarioFormatter");
 
 export function format(scenario: Scenario, options: Partial<FormatOptions>): string {
+    debug("format(scenario: %s, options: %o)", scenario.constructor.name, options);
     const l = lines(options);
     if (scenario.tags.length > 0) {
         l.add(formatTag(scenario.tags, options));

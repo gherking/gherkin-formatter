@@ -6,18 +6,22 @@ import { format as formatRule } from "./ruleFormatter";
 import { format as formatScenario } from "./scenarioFormatter";
 import { format as formatScenarioOutline } from "./scenarioOutlineFormatter";
 import { format as formatTag } from "./tagFormatter";
+import { getDebugger } from '../debug';
 
-export function format(obj: Feature, options: Partial<FormatOptions>): string {
+const debug = getDebugger("featureFormatter");
+
+export function format(feature: Feature, options: Partial<FormatOptions>): string {
+    debug("format(feature: %s, options: %o)", feature.constructor.name, options);
     const l = lines(options);
-    if (obj.tags.length > 0) {
-        l.add(formatTag(obj.tags, options));
+    if (feature.tags.length > 0) {
+        l.add(formatTag(feature.tags, options));
     }
-    l.add(`${obj.keyword}:${indent(obj.name, 1)}`);
-    if (obj.description) {
-        l.add(indent(obj.description));
+    l.add(`${feature.keyword}:${indent(feature.name, 1)}`);
+    if (feature.description) {
+        l.add(indent(feature.description));
     }
-    if (obj.elements.length > 0) {
-        obj.elements.forEach((item: Scenario | ScenarioOutline | Background | Rule) => {
+    if (feature.elements.length > 0) {
+        feature.elements.forEach((item: Scenario | ScenarioOutline | Background | Rule) => {
             if (item instanceof Scenario) {
                 l.add(null, indent(formatScenario(item, options)));
             } else if (item instanceof ScenarioOutline) {

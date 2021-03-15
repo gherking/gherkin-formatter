@@ -5,6 +5,7 @@ Feature: Hello world
   So that I am smth
 
   Background: Tricky bacground with description and without a single step
+  Description
 
   @tag2 @tag(3)
   Scenario Outline: Name of background <key>

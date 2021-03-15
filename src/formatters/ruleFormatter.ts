@@ -4,8 +4,12 @@ import { indent, lines } from "../utils";
 import { format as formatBackground } from "./backgroundFormatter";
 import { format as formatScenario } from "./scenarioFormatter";
 import { format as formatScenarioOutline } from "./scenarioOutlineFormatter";
+import { getDebugger } from '../debug';
+
+const debug = getDebugger("ruleFormatter");
 
 export function format(rule: Rule, options: Partial<FormatOptions>): string {
+    debug("format(rule: %s, options: %o)", rule.constructor.name, options);
     const l = lines(options);
     l.add(`${rule.keyword}:${indent(rule.name, 1)}`);
     if (rule.description) {

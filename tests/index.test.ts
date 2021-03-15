@@ -27,6 +27,8 @@ describe("gherkin-formatter", () => {
     expected.oneTagPerLine = readFile("newLineOption_expected");
     toFormat.separateStepGroups = await parse("separateStepGroups_toParse");
     expected.separateStepGroups = readFile("separateStepGroups_expected");
+    toFormat.compact = await parse("compact_toParse");
+    expected.compact = readFile("compact_expected");
   });
 
   it("should format simple document", async () => {
@@ -53,5 +55,9 @@ describe("gherkin-formatter", () => {
   it("should separate step groups", async () => {
     expect(format(toFormat.separateStepGroups[0], { separateStepGroups: true }).split(/\r?\n/g))
     .toEqual(expected.separateStepGroups.split(/\r?\n/g));
+  });
+  it("should skip empty lines", async () => {
+    expect(format(toFormat.compact[0], { compact: true }).split(/\r?\n/g))
+    .toEqual(expected.compact.split(/\r?\n/g));
   });
 });

@@ -21,6 +21,11 @@ describe("Utils", () => {
             expect(indent("text to indent")).toEqual("  text to indent");
         });
 
+        it("should indent with one level by default - chained function", () => {
+            const l: Lines = lines();
+            expect(l.add("text to indent").indent().toString()).toEqual("  text to indent");
+        });
+
         it("should not indent if negative value is passed", () => {
             expect(indent("text to indent", -20)).toEqual("text to indent");
         });

@@ -1,8 +1,11 @@
 "use strict";
 
-import Table from "cli-table";
+import Table = require("cli-table");
 import colors = require("colors/safe");
 import { FormatOptions } from "./index";
+import { getDebugger } from './debug';
+
+const debug = getDebugger("utils");
 
 interface TableOptions {
     chars: Partial<Record<(
@@ -148,6 +151,7 @@ export class Lines {
  * @returns {Lines}
  */
 export const lines = (options?: Partial<FormatOptions>): Lines => {
+    debug("lines(options: %o)", options);
     return new Lines(options);
 };
 
@@ -182,6 +186,7 @@ export const table = (): StrippedTable => {
 };
 
 export const config = (options: Partial<FormatOptions>) => {
+    debug("config(options: %o)", options);
     return Object.assign({}, DEFAULT_OPTIONS, options || {});
 };
 
@@ -193,5 +198,6 @@ export const config = (options: Partial<FormatOptions>) => {
  * @returns {string}
  */
 export const indent = (text: string, indentation: number = 2): string => {
+    debug("indent(text: %s, indentation: %d)", text, indentation);
     return lines().add(text).indent(indentation).toString();
 };

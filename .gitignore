@@ -68,3 +68,4 @@ dist
 .vs/slnx.sqlite
 .vs/VSWorkspaceState.json
 .vs/gherkin-formatter/v16/.suo
+.vscode/settings.json
