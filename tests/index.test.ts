@@ -36,8 +36,7 @@ describe("gherkin-formatter", () => {
   });
   it("should throw error if the given object is not a GherkinDocument", async () => {
     const feature = new Feature("S1", "S2", "S3");
-    expect(() => format({uri: "string", feature} as Document))
-    .toThrow(/The passed object is not a GherkinDocument!/);
+    expect(() => format({ uri: "string", feature } as Document)).toThrow(/The passed object is not a GherkinDocument!/);
   });
   it("should format background without step but with description", async () => {
     expect(format(toFormat.background[0]).split(/\r?\n/g)).toEqual(expected.background.split(/\r?\n/g));
@@ -49,15 +48,12 @@ describe("gherkin-formatter", () => {
     expect(format(toFormat.emptyRule[0]).split(/\r?\n/g)).toEqual(expected.emptyRule.split(/\r?\n/g));
   });
   it("should break tags to new lines", async () => {
-    expect(format(toFormat.oneTagPerLine[0], { oneTagPerLine: true }).split(/\r?\n/g))
-    .toEqual(expected.oneTagPerLine.split(/\r?\n/g));
+    expect(format(toFormat.oneTagPerLine[0], { oneTagPerLine: true }).split(/\r?\n/g)).toEqual(expected.oneTagPerLine.split(/\r?\n/g));
   });
   it("should separate step groups", async () => {
-    expect(format(toFormat.separateStepGroups[0], { separateStepGroups: true }).split(/\r?\n/g))
-    .toEqual(expected.separateStepGroups.split(/\r?\n/g));
+    expect(format(toFormat.separateStepGroups[0], { separateStepGroups: true }).split(/\r?\n/g)).toEqual(expected.separateStepGroups.split(/\r?\n/g));
   });
   it("should skip empty lines", async () => {
-    expect(format(toFormat.compact[0], { compact: true }).split(/\r?\n/g))
-    .toEqual(expected.compact.split(/\r?\n/g));
+    expect(format(toFormat.compact[0], { compact: true }).split(/\r?\n/g)).toEqual(expected.compact.split(/\r?\n/g));
   });
 });

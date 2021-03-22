@@ -11,7 +11,7 @@ import { getDebugger } from '../debug';
 const debug = getDebugger("featureFormatter");
 
 export function format(feature: Feature, options: Partial<FormatOptions>): string {
-    debug("format(feature: %s, options: %o)", feature.constructor.name, options);
+    debug("format(feature: %s, options: %o)", feature?.constructor.name, options);
     const l = lines(options);
     if (feature.tags.length > 0) {
         l.add(formatTag(feature.tags, options));

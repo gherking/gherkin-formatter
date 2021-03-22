@@ -15,9 +15,9 @@ export interface FormatOptions {
 
 // tslint:disable-next-line:no-any
 export const format = (document: Document, options?: Partial<FormatOptions>): string | any => {
-    debug("format(document: %s, options: %o )", document.constructor.name, options);
+    debug("format(document: %s, options: %o )", document?.constructor.name, options);
     if (!(document instanceof Document)) {
-        throw new TypeError(`The passed object is not a GherkinDocument!` + document);
+        throw new TypeError(`The passed object is not a GherkinDocument! ${document}`);
     }
     return formatGherkinDocument(document, options);
 };

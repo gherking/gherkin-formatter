@@ -84,8 +84,7 @@ describe("Utils", () => {
             });
 
             it("should handle empty lines", () => {
-                expect(l.add("new line", null, "other line", undefined, "another line").toString())
-                    .toEqual("new line\n\nother line\n\nanother line");
+                expect(l.add("new line", null, "other line", undefined, "another line").toString()).toEqual("new line\n\nother line\n\nanother line");
             });
         });
     });

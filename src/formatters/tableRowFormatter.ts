@@ -10,7 +10,7 @@ export function toArray(tableRow: TableRow) {
 }
 
 export function format(tableRows: TableRow[]): string {
-    debug("format(tableRows: %s)", tableRows.constructor.name);
+    debug("format(tableRows: %s)", tableRows?.constructor.name);
     const t = table();
     tableRows.forEach((row) => {
         t.push(toArray(row));

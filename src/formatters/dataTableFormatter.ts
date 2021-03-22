@@ -7,6 +7,6 @@ import { getDebugger } from '../debug';
 const debug = getDebugger("dataTableFormatter");
 
 export function format(dataTable: DataTable, options: Partial<FormatOptions>): string {
-    debug("format(dataTable: %s, options: %o)", dataTable.constructor.name, options);
+    debug("format(dataTable: %s, options: %o)", dataTable?.constructor.name, options);
     return lines(options).add(formatTableRows(dataTable.rows)).toString();
 }

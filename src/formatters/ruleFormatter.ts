@@ -9,7 +9,7 @@ import { getDebugger } from '../debug';
 const debug = getDebugger("ruleFormatter");
 
 export function format(rule: Rule, options: Partial<FormatOptions>): string {
-    debug("format(rule: %s, options: %o)", rule.constructor.name, options);
+    debug("format(rule: %s, options: %o)", rule?.constructor.name, options);
     const l = lines(options);
     l.add(`${rule.keyword}:${indent(rule.name, 1)}`);
     if (rule.description) {
