@@ -7,8 +7,11 @@ import { getDebugger } from '../debug';
 
 const debug = getDebugger("scenarioFormatter");
 
-export function format(scenario: Scenario, options: Partial<FormatOptions>): string {
+export function format(scenario: Scenario, options?: Partial<FormatOptions>): string {
     debug("format(scenario: %s, options: %o)", scenario?.constructor.name, options);
+    if (!scenario) {
+        throw new Error("Scenario must be set!");
+    }
     const l = lines(options);
     if (scenario.tags.length > 0) {
         l.add(formatTag(scenario.tags, options));

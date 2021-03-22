@@ -7,8 +7,11 @@ import { getDebugger } from '../debug';
 
 const debug = getDebugger("stepFormatter");
 
-export function format(step: Step, options: Partial<FormatOptions>): string {
+export function format(step: Step, options?: Partial<FormatOptions>): string {
     debug("format(step: %s, options: %o)", step?.constructor.name, options);
+    if (!step) {
+        throw new Error("Step must be set!");
+    }
     const l = lines(options);
     l.add(`${step.keyword} ${step.text}`);
     if (step.docString) {

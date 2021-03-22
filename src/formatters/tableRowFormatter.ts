@@ -11,6 +11,9 @@ export function toArray(tableRow: TableRow) {
 
 export function format(tableRows: TableRow[]): string {
     debug("format(tableRows: %s)", tableRows?.constructor.name);
+    if (!tableRows) {
+        throw new Error("TableRows must be set!");
+    }
     const t = table();
     tableRows.forEach((row) => {
         t.push(toArray(row));

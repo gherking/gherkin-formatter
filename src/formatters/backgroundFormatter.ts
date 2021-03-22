@@ -6,8 +6,11 @@ import { getDebugger } from '../debug';
 
 const debug = getDebugger("backgroundFormatter");
 
-export function format(background: Background, options: Partial<FormatOptions>): string {
+export function format(background: Background, options?: Partial<FormatOptions>): string {
     debug("format(background: %s, options: %o)", background?.constructor.name, options);
+    if (!background) {
+        throw new Error("Background must be set!");
+    }
     const l = lines(options);
     l.add(`${background.keyword}:${background.name ? " " + background.name : ""}`);
     if (background.description) {

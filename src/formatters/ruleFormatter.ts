@@ -8,8 +8,11 @@ import { getDebugger } from '../debug';
 
 const debug = getDebugger("ruleFormatter");
 
-export function format(rule: Rule, options: Partial<FormatOptions>): string {
+export function format(rule: Rule, options?: Partial<FormatOptions>): string {
     debug("format(rule: %s, options: %o)", rule?.constructor.name, options);
+    if (!rule) {
+        throw new Error("Rule must be set!");
+    }
     const l = lines(options);
     l.add(`${rule.keyword}:${indent(rule.name, 1)}`);
     if (rule.description) {

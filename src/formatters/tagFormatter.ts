@@ -5,8 +5,11 @@ import { getDebugger } from '../debug';
 
 const debug = getDebugger("tagFormatter");
 
-export function format(tags: Tag[], options: Partial<FormatOptions>): string {
+export function format(tags: Tag[], options?: Partial<FormatOptions>): string {
     debug("format(tags: %s, options: %o)", tags?.constructor.name, options);
+    if (!tags) {
+        throw new Error("Tags must be set!");
+    }
     options = config(options);
     if (!options.oneTagPerLine) {
         return tags.map((tag) => tag.toString()).join(" ");

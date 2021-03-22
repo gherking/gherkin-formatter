@@ -10,8 +10,11 @@ import { getDebugger } from '../debug';
 
 const debug = getDebugger("featureFormatter");
 
-export function format(feature: Feature, options: Partial<FormatOptions>): string {
+export function format(feature: Feature, options?: Partial<FormatOptions>): string {
     debug("format(feature: %s, options: %o)", feature?.constructor.name, options);
+    if (!feature) {
+        throw new Error("Feature must be set!");
+    }
     const l = lines(options);
     if (feature.tags.length > 0) {
         l.add(formatTag(feature.tags, options));
