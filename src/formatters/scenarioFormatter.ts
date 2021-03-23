@@ -1,9 +1,9 @@
 import { Scenario, Step } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { config, indent, lines } from "../utils";
 import { format as formatStep } from "./stepFormatter";
 import { format as formatTag } from "./tagFormatter";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("scenarioFormatter");
 

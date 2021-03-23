@@ -1,7 +1,7 @@
 import { Document } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { format as formatFeature } from "./featureFormatter";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("gherkinDocumentFormatter");
 

@@ -1,7 +1,7 @@
 import { DocString } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { lines } from "../utils";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("docStringFormatter");
 const DOC_STRING_DELIMITER = "\"\"\"";

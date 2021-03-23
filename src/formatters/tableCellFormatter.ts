@@ -1,5 +1,5 @@
 import { TableCell } from "gherkin-ast";
-import { getDebugger } from '../debug';
+import { getDebugger } from "../debug";
 
 const debug = getDebugger("tableCellFormatter");
 

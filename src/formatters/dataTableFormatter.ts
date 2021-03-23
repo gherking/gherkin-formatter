@@ -1,8 +1,8 @@
 import { DataTable } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { lines } from "../utils";
 import { format as formatTableRows } from "./tableRowFormatter";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("dataTableFormatter");
 

@@ -1,7 +1,7 @@
 import { Tag } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { config, lines } from "../utils";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("tagFormatter");
 

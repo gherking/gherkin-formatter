@@ -1,6 +1,6 @@
 import { Document } from "gherkin-ast";
+import { getDebugger } from "./debug";
 import { format as formatGherkinDocument } from "./formatters/gherkinDocumentFormatter";
-import { getDebugger } from './debug';
 declare type Eol = "\n" | "\r\n";
 
 const debug = getDebugger("index");

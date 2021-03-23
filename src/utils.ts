@@ -2,8 +2,8 @@
 
 import Table = require("cli-table");
 import colors = require("colors/safe");
+import { getDebugger } from "./debug";
 import { FormatOptions } from "./index";
-import { getDebugger } from './debug';
 
 const debug = getDebugger("utils");
 

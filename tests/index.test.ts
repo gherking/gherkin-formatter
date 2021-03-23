@@ -1,7 +1,7 @@
 import * as fs from "fs";
-import * as path from "path";
 import { Document, Feature } from "gherkin-ast";
 import { read } from "gherkin-io";
+import * as path from "path";
 import { format } from "../src";
 import { format as formatBackground } from "../src/formatters/backgroundFormatter";
 import { format as formatDataTable } from "../src/formatters/dataTableFormatter";
@@ -60,9 +60,11 @@ describe("gherkin-formatter", () => {
     expect(format(toFormat.emptyRule[0]).split(/\r?\n/g)).toEqual(expected.emptyRule.split(/\r?\n/g));
   });
   it("should break tags to new lines", () => {
+    // tslint:disable-next-line:max-line-length
     expect(format(toFormat.oneTagPerLine[0], { oneTagPerLine: true }).split(/\r?\n/g)).toEqual(expected.oneTagPerLine.split(/\r?\n/g));
   });
   it("should separate step groups", () => {
+    // tslint:disable-next-line:max-line-length
     expect(format(toFormat.separateStepGroups[0], { separateStepGroups: true }).split(/\r?\n/g)).toEqual(expected.separateStepGroups.split(/\r?\n/g));
   });
   it("should skip empty lines", () => {

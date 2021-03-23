@@ -1,9 +1,9 @@
 import { Examples, TableRow } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { indent, lines } from "../utils";
 import { format as formatTableRows } from "./tableRowFormatter";
 import { format as formatTag } from "./tagFormatter";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("examplesFormatter");
 

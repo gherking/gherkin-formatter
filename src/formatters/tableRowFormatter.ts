@@ -1,7 +1,7 @@
 import { TableRow } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { table } from "../utils";
 import { format as formatTableCell } from "./TableCellFormatter";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("tableRowFormatter");
 

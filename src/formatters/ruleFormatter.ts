@@ -1,10 +1,10 @@
 import { Background, Rule, Scenario, ScenarioOutline } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { indent, lines } from "../utils";
 import { format as formatBackground } from "./backgroundFormatter";
 import { format as formatScenario } from "./scenarioFormatter";
 import { format as formatScenarioOutline } from "./scenarioOutlineFormatter";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("ruleFormatter");
 

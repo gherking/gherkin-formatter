@@ -1,9 +1,9 @@
 import { Step } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { indent, lines } from "../utils";
 import { format as formatDataTable } from "./dataTableFormatter";
 import { format as formatDocString } from "./docStringFormatter";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("stepFormatter");
 

@@ -1,8 +1,8 @@
 import { Background, Step } from "gherkin-ast";
+import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { config, indent, lines } from "../utils";
 import { format as formatStep } from "./stepFormatter";
-import { getDebugger } from '../debug';
 
 const debug = getDebugger("backgroundFormatter");
 
