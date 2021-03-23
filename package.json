@@ -1,6 +1,6 @@
 {
   "name": "gherkin-formatter",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Tool to format gherkin-ast model to gherkin string",
   "main": "index.js",
   "types": "index.d.ts",
@@ -30,7 +30,8 @@
   ],
   "author": "Team GherKing",
   "contributors": [
-    "Sandor Orosz <os.sandor@gmail.com>"
+    "Sandor Orosz <os.sandor@gmail.com>",
+    "Norbert Gulacsi <gulacsi.gula.norbert@gmail.com>"
   ],
   "license": "MIT",
   "files": [
@@ -39,7 +40,7 @@
     "*.js.map"
   ],
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=12.0.0"
   },
   "bugs": {
     "url": "https://github.com/gherking/gherkin-formatter/issues"
