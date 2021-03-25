@@ -28,11 +28,7 @@
     "Examples",
     "AST"
   ],
-  "author": "Team GherKing",
-  "contributors": [
-    "Sandor Orosz <os.sandor@gmail.com>",
-    "Norbert Gulacsi <gulacsi.gula.norbert@gmail.com>"
-  ],
+  "author": "GherKing (https://github.com/gherking)",
   "license": "MIT",
   "files": [
     "*.js",
@@ -51,7 +47,7 @@
     "@types/jest": "^24.0.15",
     "@types/node": "^12.0.10",
     "copyfiles": "^2.1.0",
-    "gherkin-io": "^0.1.1",
+    "gherkin-io": "^1.0.1",
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
     "rimraf": "^2.6.3",
@@ -67,9 +63,6 @@
     "@types/colors": "^1.2.1",
     "cli-table": "^0.3.1",
     "eol": "^0.9.1",
-    "gherkin-ast": "3.0.2"
-  },
-  "resolutions": {
     "gherkin-ast": "3.0.2"
   },
   "jest": {
