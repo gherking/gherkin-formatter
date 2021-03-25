@@ -1,6 +1,10 @@
 # gherkin-formatter
 
-[![Build Status](https://travis-ci.org/gherking/gherkin-formatter.svg?branch=master)](https://travis-ci.org/gherking/gherkin-formatter) [![dependency Status](https://david-dm.org/gherking/gherkin-formatter.svg)](https://david-dm.org/gherking/gherkin-formatter) [![devDependency Status](https://david-dm.org/gherking/gherkin-formatter/dev-status.svg)](https://david-dm.org/gherking/gherkin-formatter#info=devDependencies)
+![Downloads](https://img.shields.io/npm/dw/gherkin-formatter?style=flat-square)
+![Version@npm](https://img.shields.io/npm/v/gherkin-formatter?label=version%40npm&style=flat-square)
+![Version@git](https://img.shields.io/github/package-json/v/gherking/gherkin-formatter/master?label=version%40git&style=flat-square)
+![CI](https://img.shields.io/github/workflow/status/gherking/gherkin-formatter/CI/master?label=ci&style=flat-square)
+![Docs](https://img.shields.io/github/workflow/status/gherking/gherkin-formatter/Docs/master?label=docs&style=flat-square)
 
 Tool to format gherkin-ast model to gherkin string
 
