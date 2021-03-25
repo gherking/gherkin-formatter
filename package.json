@@ -1,12 +1,12 @@
 {
   "name": "gherkin-formatter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tool to format gherkin-ast model to gherkin string",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "npm run clean && npm run compile && npm run copyToDist && npm test -- --coverage && npm run typedoc",
-    "buildUpdate": "npm run compile && npm run copyToDist",
+    "build": "npm run buildUpdate && npm test -- --coverage && npm run typedoc",
+    "buildUpdate": "npm run clean && npm run compile && npm run copyToDist",
     "copyToDist": "copyfiles -f *.txt *.md package.json dist",
     "typedoc": "typedoc --out ./docs ./src && touch ./docs/.nojekyll",
     "clean": "rimraf ./dist ./docs",
@@ -31,9 +31,9 @@
   "author": "GherKing (https://github.com/gherking)",
   "license": "MIT",
   "files": [
-    "*.js",
-    "*.d.ts",
-    "*.js.map"
+    "**/*.js",
+    "**/*.d.ts",
+    "**/*.js.map"
   ],
   "engines": {
     "node": ">=12.0.0"
