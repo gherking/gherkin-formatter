@@ -1,6 +1,6 @@
 {
   "name": "gherkin-formatter",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Tool to format gherkin-ast model to gherkin string",
   "main": "index.js",
   "types": "index.d.ts",
@@ -8,7 +8,7 @@
     "build": "npm run clean && npm run compile && npm run copyToDist && npm test -- --coverage && npm run typedoc",
     "buildUpdate": "npm run compile && npm run copyToDist",
     "copyToDist": "copyfiles -f *.txt *.md package.json dist",
-    "typedoc": "typedoc --mode file --exclude **/bin/**/*.ts --exclude **/cli.ts --out ./docs ./src && touch ./docs/.nojekyll",
+    "typedoc": "typedoc --out ./docs ./src && touch ./docs/.nojekyll",
     "clean": "rimraf ./dist ./docs",
     "test": "jest --coverage",
     "tslint": "tslint -c tslint.json ./src/**/*.ts ./tests/**/*.ts",
@@ -28,10 +28,7 @@
     "Examples",
     "AST"
   ],
-  "author": "Team GherKing",
-  "contributors": [
-    "Sandor Orosz <os.sandor@gmail.com>"
-  ],
+  "author": "GherKing (https://github.com/gherking)",
   "license": "MIT",
   "files": [
     "*.js",
@@ -39,27 +36,34 @@
     "*.js.map"
   ],
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=12.0.0"
   },
   "bugs": {
     "url": "https://github.com/gherking/gherkin-formatter/issues"
   },
   "homepage": "https://github.com/gherking/gherkin-formatter#readme",
   "devDependencies": {
+    "@types/debug": "^4.1.5",
     "@types/jest": "^24.0.15",
     "@types/node": "^12.0.10",
     "copyfiles": "^2.1.0",
+    "gherkin-io": "^1.0.1",
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
-    "typedoc": "^0.14.2",
+    "typedoc": "^0.20.28",
     "typescript": "^3.5.2"
   },
   "dependencies": {
+    "debug": "^4.3.1",
+    "@types/cli-table": "^0.3.0",
+    "@types/color-name": "^1.1.1",
+    "@types/colors": "^1.2.1",
+    "cli-table": "^0.3.1",
     "eol": "^0.9.1",
-    "gherkin-ast": "^2.0.1"
+    "gherkin-ast": "^3.0.2"
   },
   "jest": {
     "transform": {

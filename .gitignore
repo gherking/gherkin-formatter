@@ -61,3 +61,12 @@ typings/
 .next
 
 dist
+docs
+
+# IDE specific files
+.idea
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/gherkin-formatter/v16/.suo
+.vscode/settings.json
