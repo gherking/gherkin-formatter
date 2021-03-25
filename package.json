@@ -63,7 +63,7 @@
     "@types/colors": "^1.2.1",
     "cli-table": "^0.3.1",
     "eol": "^0.9.1",
-    "gherkin-ast": "3.0.2"
+    "gherkin-ast": "^3.0.2"
   },
   "jest": {
     "transform": {
