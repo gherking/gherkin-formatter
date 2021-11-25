@@ -70,3 +70,6 @@ docs
 .vs/VSWorkspaceState.json
 .vs/gherkin-formatter/v16/.suo
 .vscode/settings.json
+
+# OS specific files
+.DS_Store

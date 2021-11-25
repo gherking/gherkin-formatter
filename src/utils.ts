@@ -49,7 +49,7 @@ class StrippedTable extends Table {
     }
 }
 
-const DEFAULT_OPTIONS: FormatOptions = {
+export const DEFAULT_OPTIONS: FormatOptions = {
     oneTagPerLine: false,
     compact: false,
     separateStepGroups: false,
@@ -85,7 +85,7 @@ export class Lines {
         return this;
     }
 
-    public indent(indentation: number = 2): Lines {
+    public indent(indentation = 2): Lines {
         indentation = Math.max(indentation, 0);
         if (indentation) {
             this._lines = this._lines.map((line) => {
@@ -140,7 +140,7 @@ export const config = (options: Partial<FormatOptions>) => {
     return Object.assign({}, DEFAULT_OPTIONS, options || {});
 };
 
-export const indent = (text: string, indentation: number = 2): string => {
+export const indent = (text: string, indentation = 2): string => {
     debug("indent(text: %s, indentation: %d)", text, indentation);
     return lines().add(text).indent(indentation).toString();
 };
