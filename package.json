@@ -1,5 +1,5 @@
 {
-  "name": "gherkin-formatter",
+  "name": "@adeo/gherkin-formatter",
   "version": "1.0.1",
   "description": "Tool to format gherkin-ast model to gherkin string",
   "bin": "cli.js",
