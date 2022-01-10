@@ -5,7 +5,6 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
     "build": "npm run buildUpdate && npm test -- --coverage && npm run typedoc",
     "buildUpdate": "npm run clean && npm run compile && npm run copyToDist",
     "copyToDist": "copyfiles -f *.txt *.md package.json dist",
@@ -52,11 +51,11 @@
     "gherkin-io": "^1.0.1",
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
-    "rimraf": "^2.6.3",
+    "rimraf": "^3.0.2",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.18.0",
-    "typedoc": "^0.20.28",
-    "typescript": "^3.5.2"
+    "tslint": "^6.1.3",
+    "typedoc": "^0.22.10",
+    "typescript": "^4.5.4"
   },
   "dependencies": {
     "debug": "^4.3.1",
