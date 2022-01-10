@@ -14,9 +14,5 @@ export function format(tableRows: TableRow[]): string {
     if (!tableRows) {
         throw new Error("TableRows must be set!");
     }
-    const t = table();
-    tableRows.forEach((row) => {
-        t.push(toArray(row));
-    });
-    return t.toString();
+    return table(tableRows.map(toArray));
 }

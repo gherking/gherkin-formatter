@@ -1,53 +1,10 @@
 "use strict";
 
-import Table = require("cli-table");
-import colors = require("colors/safe");
+import * as t from "table";
 import { getDebugger } from "./debug";
 import { FormatOptions } from "./index";
 
 const debug = getDebugger("utils");
-
-interface TableOptions {
-    chars: Partial<Record<(
-        "top" |
-        "top-mid" |
-        "top-left" |
-        "top-right" |
-        "bottom" |
-        "bottom-mid" |
-        "bottom-left" |
-        "bottom-right" |
-        "left" |
-        "left-mid" |
-        "mid" |
-        "mid-mid" |
-        "right" |
-        "right-mid" |
-        "middle"
-    ), string>>;
-    truncate: string;
-    colors: boolean;
-    colWidths: number[];
-    colAligns: Array<"left" | "middle" | "right">;
-    style: Partial<{
-        "padding-left": number;
-        "padding-right": number;
-        head: string[];
-        border: string[];
-        compact: boolean;
-    }>;
-    head: string[];
-}
-
-class StrippedTable extends Table {
-    constructor(strippedTableConfig: Partial<TableOptions>) {
-        super(strippedTableConfig);
-    }
-
-    public toString() {
-        return colors.strip(super.toString());
-    }
-}
 
 const DEFAULT_OPTIONS: FormatOptions = {
     oneTagPerLine: false,
@@ -109,30 +66,30 @@ export const lines = (options?: Partial<FormatOptions>): Lines => {
     return new Lines(options);
 };
 
-export const table = (): StrippedTable => {
-    return new StrippedTable({
-        chars: {
-            "top": "",
-            "top-mid": "",
-            "top-left": "",
-            "top-right": "",
-            "bottom": "",
-            "bottom-mid": "",
-            "bottom-left": "",
-            "bottom-right": "",
-            "left": "|",
-            "left-mid": "",
-            "mid": "",
-            "mid-mid": "",
-            "right": "|",
-            "right-mid": "",
-            "middle": "|",
+export const table = (data: unknown[][]): string => {
+    return t.table(data, {
+        border: {
+            topBody: "",
+            topJoin: "",
+            topLeft: "",
+            topRight: "",
+
+            bottomBody: "",
+            bottomJoin: "",
+            bottomLeft: "",
+            bottomRight: "",
+
+            bodyLeft: "|",
+            bodyRight: "|",
+            bodyJoin: "|",
+
+            joinBody: "",
+            joinLeft: "",
+            joinRight: "",
+            joinJoin: ""
         },
-        style: {
-            border: [],
-            head: [],
-        },
-    });
+        drawHorizontalLine: () => false,
+    }).trim();
 };
 
 export const config = (options: Partial<FormatOptions>) => {

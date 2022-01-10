@@ -1,10 +1,11 @@
 {
   "name": "gherkin-formatter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tool to format gherkin-ast model to gherkin string",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "build": "npm run buildUpdate && npm test -- --coverage && npm run typedoc",
     "buildUpdate": "npm run clean && npm run compile && npm run copyToDist",
     "copyToDist": "copyfiles -f *.txt *.md package.json dist",
@@ -46,6 +47,7 @@
     "@types/debug": "^4.1.5",
     "@types/jest": "^24.0.15",
     "@types/node": "^12.0.10",
+    "colors": "1.4.0",
     "copyfiles": "^2.1.0",
     "gherkin-io": "^1.0.1",
     "jest": "^24.8.0",
@@ -58,12 +60,12 @@
   },
   "dependencies": {
     "debug": "^4.3.1",
-    "@types/cli-table": "^0.3.0",
-    "@types/color-name": "^1.1.1",
-    "@types/colors": "^1.2.1",
-    "cli-table": "^0.3.1",
     "eol": "^0.9.1",
-    "gherkin-ast": "^3.0.2"
+    "gherkin-ast": "^3.0.2",
+    "table": "^6.8.0"
+  },
+  "resolutions": {
+    "colors": "1.4.0"
   },
   "jest": {
     "transform": {
