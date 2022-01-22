@@ -1,7 +1,7 @@
 import { Background, Feature, Rule, Scenario, ScenarioOutline } from "gherkin-ast";
 import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
-import { indent, lines } from "../utils";
+import { lines } from "lines-builder";
 import { format as formatBackground } from "./backgroundFormatter";
 import { format as formatRule } from "./ruleFormatter";
 import { format as formatScenario } from "./scenarioFormatter";
@@ -15,24 +15,23 @@ export function format(feature: Feature, options?: Partial<FormatOptions>): stri
     if (!feature) {
         throw new Error("Feature must be set!");
     }
-    const l = lines(options);
+    const l = lines(`${feature.keyword}: ${feature.name}`);
     if (feature.tags.length > 0) {
-        l.add(formatTag(feature.tags, options));
+        l.prepend(formatTag(feature.tags, options));
     }
-    l.add(`${feature.keyword}:${indent(feature.name, 1)}`);
     if (feature.description) {
-        l.add(indent(feature.description));
+        l.append(lines({ trim: true }, feature.description));
     }
     if (feature.elements.length > 0) {
         feature.elements.forEach((item: Scenario | ScenarioOutline | Background | Rule) => {
             if (item instanceof Scenario) {
-                l.add(null, indent(formatScenario(item, options)));
+                l.append(null, lines(formatScenario(item, options)));
             } else if (item instanceof ScenarioOutline) {
-                l.add(null, indent(formatScenarioOutline(item, options)));
+                l.append(null, lines(formatScenarioOutline(item, options)));
             } else if (item instanceof Background) {
-                l.add(null, indent(formatBackground(item, options)));
+                l.append(null, lines(formatBackground(item, options)));
             } else if (item instanceof Rule) {
-                l.add(null, indent(formatRule(item, options)));
+                l.append(null, lines(formatRule(item, options)));
             }
         });
     }

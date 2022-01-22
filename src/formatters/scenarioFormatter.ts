@@ -1,7 +1,7 @@
 import { Scenario, Step } from "gherkin-ast";
+import { lines } from "lines-builder";
 import { getDebugger } from "../debug";
-import { FormatOptions } from "../index";
-import { config, indent, lines } from "../utils";
+import { FormatOptions, config } from "../index";
 import { format as formatStep } from "./stepFormatter";
 import { format as formatTag } from "./tagFormatter";
 
@@ -12,13 +12,12 @@ export function format(scenario: Scenario, options?: Partial<FormatOptions>): st
     if (!scenario) {
         throw new Error("Scenario must be set!");
     }
-    const l = lines(options);
+    const l = lines(`${scenario.keyword}: ${scenario.name}`);
     if (scenario.tags.length > 0) {
-        l.add(formatTag(scenario.tags, options));
+        l.prepend(formatTag(scenario.tags, options));
     }
-    l.add(`${scenario.keyword}: ${scenario.name}`);
     if (scenario.description) {
-        l.add(scenario.description, null);
+        l.append(lines({ trim: true }, scenario.description), null);
     }
     if (scenario.steps.length > 0) {
         const addGroups = config(options).separateStepGroups;
@@ -27,9 +26,9 @@ export function format(scenario: Scenario, options?: Partial<FormatOptions>): st
         }
         scenario.steps.forEach((step: Step, index: number) => {
             if (addGroups && step.keyword === "When" && index !== 0) {
-                l.add();
+                l.append(null);
             }
-            l.add(indent(formatStep(step, options)));
+            l.append(lines(formatStep(step)));
         });
     }
     return l.toString();

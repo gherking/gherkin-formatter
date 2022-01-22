@@ -1,4 +1,5 @@
 import { Document } from "gherkin-ast";
+import { setDefaultOptions } from "lines-builder";
 import { getDebugger } from "./debug";
 import { format as formatGherkinDocument } from "./formatters/gherkinDocumentFormatter";
 declare type Eol = "\n" | "\r\n";
@@ -9,9 +10,25 @@ export interface FormatOptions {
     oneTagPerLine?: boolean;
     separateStepGroups?: boolean;
     compact?: boolean;
-    lineBreak: Eol;
-    indentation: string;
+    lineBreak?: string | null;
+    indentation?: string | number;
 }
+
+const DEFAULT_OPTIONS: FormatOptions = {
+    oneTagPerLine: false,
+    separateStepGroups: false,
+    compact: false,
+    lineBreak: null,
+    indentation: "  ",
+};
+
+export const config = (options: Partial<FormatOptions>): FormatOptions => {
+    debug("config(options: %o)", options);
+    return {
+        ...DEFAULT_OPTIONS,
+        ...(options || {}),
+    };
+};
 
 // tslint:disable-next-line:no-any
 export const format = (document: Document, options?: Partial<FormatOptions>): string | any => {
@@ -22,5 +39,12 @@ export const format = (document: Document, options?: Partial<FormatOptions>): st
     if (!(document instanceof Document)) {
         throw new TypeError(`The passed object is not a GherkinDocument! ${document}`);
     }
+    options = config(options);
+    setDefaultOptions({
+        eol: options.lineBreak,
+        indent: options.indentation,
+        indentEmpty: true,
+        trim: true,
+    });
     return formatGherkinDocument(document, options);
 };

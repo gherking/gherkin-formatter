@@ -1,7 +1,7 @@
 import { Background, Step } from "gherkin-ast";
 import { getDebugger } from "../debug";
-import { FormatOptions } from "../index";
-import { config, indent, lines } from "../utils";
+import { FormatOptions, config } from "../index";
+import { lines } from "lines-builder";
 import { format as formatStep } from "./stepFormatter";
 
 const debug = getDebugger("backgroundFormatter");
@@ -11,24 +11,20 @@ export function format(background: Background, options?: Partial<FormatOptions>)
     if (!background) {
         throw new Error("Background must be set!");
     }
-    const l = lines(options);
-    l.add(`${background.keyword}:${background.name ? " " + background.name : ""}`);
+    const l = lines(`${background.keyword}:${background.name ? " " + background.name : ""}`);
     if (background.description) {
-        l.add(background.description);
+        l.append(lines({ trim: true }, background.description), null);
     }
     if (background.steps.length > 0) {
-        if (background.description) {
-            l.add(null);
-        }
         const addGroups = config(options).separateStepGroups;
         if (addGroups) {
             background.useReadableStepKeywords();
         }
         background.steps.forEach((step: Step, index: number) => {
             if (addGroups && step.keyword === "When" && index !== 0) {
-                l.add();
+                l.append(null);
             }
-            l.add(indent(formatStep(step, options)));
+            l.append(lines(formatStep(step)));
         });
     }
     return l.toString();

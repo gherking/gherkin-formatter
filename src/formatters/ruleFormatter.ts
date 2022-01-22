@@ -1,10 +1,11 @@
 import { Background, Rule, Scenario, ScenarioOutline } from "gherkin-ast";
+import { lines } from "lines-builder";
 import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
-import { indent, lines } from "../utils";
 import { format as formatBackground } from "./backgroundFormatter";
 import { format as formatScenario } from "./scenarioFormatter";
 import { format as formatScenarioOutline } from "./scenarioOutlineFormatter";
+import { format as formatTag } from "./tagFormatter";
 
 const debug = getDebugger("ruleFormatter");
 
@@ -13,19 +14,21 @@ export function format(rule: Rule, options?: Partial<FormatOptions>): string {
     if (!rule) {
         throw new Error("Rule must be set!");
     }
-    const l = lines(options);
-    l.add(`${rule.keyword}:${indent(rule.name, 1)}`);
+    const l = lines(`${rule.keyword}: ${rule.name}`);
+    if (rule.tags.length > 0) {
+        l.prepend(lines(formatTag(rule.tags, options)));
+    }
     if (rule.description) {
-        l.add(indent(rule.description));
+        l.append(lines({ trim: true }, rule.description));
     }
     if (rule.elements.length > 0) {
         rule.elements.forEach((item: Scenario | ScenarioOutline | Background | Rule) => {
             if (item instanceof Scenario) {
-                l.add(null, indent(formatScenario(item, options)));
+                l.append(null, lines(formatScenario(item, options)));
             } else if (item instanceof ScenarioOutline) {
-                l.add(null, indent(formatScenarioOutline(item, options)));
+                l.append(null, lines(formatScenarioOutline(item, options)));
             } else if (item instanceof Background) {
-                l.add(null, indent(formatBackground(item, options)));
+                l.append(null, lines(formatBackground(item, options)));
             }
         });
     }

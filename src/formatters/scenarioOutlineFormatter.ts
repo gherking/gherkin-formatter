@@ -1,7 +1,7 @@
 import { ScenarioOutline } from "gherkin-ast";
+import { lines } from "lines-builder";
 import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
-import { lines } from "../utils";
 import { format as formatExamples } from "./examplesFormatter";
 import { format as formatScenario } from "./scenarioFormatter";
 
@@ -12,11 +12,10 @@ export function format(scenarioOutline: ScenarioOutline, options?: Partial<Forma
     if (!scenarioOutline) {
         throw new Error("ScenarioOutline must be set!");
     }
-    const l = lines(options);
-    l.add(formatScenario(scenarioOutline, options));
+    const l = lines(formatScenario(scenarioOutline, options));
     if (scenarioOutline.examples.length > 0) {
         scenarioOutline.examples.forEach((examples) => {
-            l.add(null, formatExamples(examples, options));
+            l.append(null, formatExamples(examples, options));
         });
     }
     return l.toString();

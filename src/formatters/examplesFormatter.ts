@@ -1,7 +1,7 @@
 import { Examples, TableRow } from "gherkin-ast";
+import { lines } from "lines-builder";
 import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
-import { indent, lines } from "../utils";
 import { format as formatTableRows } from "./tableRowFormatter";
 import { format as formatTag } from "./tagFormatter";
 
@@ -12,15 +12,13 @@ export function format(examples: Examples, options?: Partial<FormatOptions>): st
     if (!examples) {
         throw new Error("Examples must be set!");
     }
-    const l = lines(options);
+    const l = lines(`${examples.keyword}: ${examples.name}`);
     if (examples.tags.length > 0) {
-        l.add(formatTag(examples.tags, options));
+        l.prepend(formatTag(examples.tags, options));
     }
-    l.add(indent(`${examples.keyword}: ${examples.name}`));
-
     const tableRows: TableRow[] = [examples.header, ...examples.body];
 
-    l.add(indent(formatTableRows(tableRows), 4));
+    l.append(lines(formatTableRows(tableRows)));
 
     return l.toString();
 }
