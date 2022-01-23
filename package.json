@@ -1,6 +1,6 @@
 {
   "name": "gherkin-formatter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Tool to format gherkin-ast model to gherkin string",
   "main": "index.js",
   "types": "index.d.ts",
