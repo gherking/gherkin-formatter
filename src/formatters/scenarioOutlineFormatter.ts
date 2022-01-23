@@ -15,7 +15,7 @@ export function format(scenarioOutline: ScenarioOutline, options?: Partial<Forma
     const l = lines(formatScenario(scenarioOutline, options));
     if (scenarioOutline.examples.length > 0) {
         scenarioOutline.examples.forEach((examples) => {
-            l.append(null, formatExamples(examples, options));
+            l.append(null, lines(formatExamples(examples, options)));
         });
     }
     return l.toString();

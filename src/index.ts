@@ -43,8 +43,11 @@ export const format = (document: Document, options?: Partial<FormatOptions>): st
     setDefaultOptions({
         eol: options.lineBreak,
         indent: options.indentation,
-        indentEmpty: true,
-        trim: true,
+        skipEmpty: options.compact,
+        skipFirstLevelIndent: true,
+        indentEmpty: false,
+        trimLeft: false,
+        trimRight: true,
     });
     return formatGherkinDocument(document, options);
 };

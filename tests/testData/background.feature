@@ -5,7 +5,7 @@ Feature: Hello world
   So that I am smth
 
   Background: Tricky bacground with description and without a single step
-  Description
+    Description
 
   @tag2 @tag(3)
   Scenario Outline: Name of background <key>
@@ -16,7 +16,7 @@ Feature: Hello world
     Then it should be a then step
     And it should be a then step too
 
-  @tagE2
+    @tagE2
     Examples: Second examples
       | key    |
       | value2 |

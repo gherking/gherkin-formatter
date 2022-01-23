@@ -17,7 +17,7 @@ export function format(scenario: Scenario, options?: Partial<FormatOptions>): st
         l.prepend(formatTag(scenario.tags, options));
     }
     if (scenario.description) {
-        l.append(lines({ trim: true }, scenario.description), null);
+        l.append(lines({ trimLeft: true }, scenario.description), null);
     }
     if (scenario.steps.length > 0) {
         const addGroups = config(options).separateStepGroups;

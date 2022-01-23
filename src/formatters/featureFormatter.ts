@@ -20,7 +20,7 @@ export function format(feature: Feature, options?: Partial<FormatOptions>): stri
         l.prepend(formatTag(feature.tags, options));
     }
     if (feature.description) {
-        l.append(lines({ trim: true }, feature.description));
+        l.append(lines({ trimLeft: true }, feature.description));
     }
     if (feature.elements.length > 0) {
         feature.elements.forEach((item: Scenario | ScenarioOutline | Background | Rule) => {

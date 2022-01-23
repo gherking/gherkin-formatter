@@ -4,11 +4,12 @@ Feature: Hello world
   I want to do smth
   So that I am smth
 
+  @tag1 @tag2
   Rule: Name of the rule
     Description of the rule
 
     Background:
-    Description
+      Description
 
       Given this is a given step
       And this is a given step too
@@ -19,7 +20,7 @@ Feature: Hello world
 
     @tag2 @tag3
     Scenario: Name of scenario
-    Description of the scenario
+      Description of the scenario
 
       Given this is a given step
       And this is a given step too
@@ -42,7 +43,7 @@ Feature: Hello world
       And it should be a then step too
 
     Scenario: Name of scenario
-    Description of the scenario
+      Description of the scenario
 
       Given this is a given step
       And this is a given step too
@@ -58,7 +59,7 @@ Feature: Hello world
       Then it should be a then step
       And it should be a then step too
 
-    @tagE1
+      @tagE1
       Examples: First examples
         | key    | key2   |
         | value1 | value2 |

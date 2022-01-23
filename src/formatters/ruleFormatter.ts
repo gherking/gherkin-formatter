@@ -16,10 +16,10 @@ export function format(rule: Rule, options?: Partial<FormatOptions>): string {
     }
     const l = lines(`${rule.keyword}: ${rule.name}`);
     if (rule.tags.length > 0) {
-        l.prepend(lines(formatTag(rule.tags, options)));
+        l.prepend(formatTag(rule.tags, options));
     }
     if (rule.description) {
-        l.append(lines({ trim: true }, rule.description));
+        l.append(lines({ trimLeft: true }, rule.description));
     }
     if (rule.elements.length > 0) {
         rule.elements.forEach((item: Scenario | ScenarioOutline | Background | Rule) => {

@@ -11,11 +11,14 @@ export function format(background: Background, options?: Partial<FormatOptions>)
     if (!background) {
         throw new Error("Background must be set!");
     }
-    const l = lines(`${background.keyword}:${background.name ? " " + background.name : ""}`);
+    const l = lines(`${background.keyword}: ${background.name}`);
     if (background.description) {
-        l.append(lines({ trim: true }, background.description), null);
+        l.append(lines({ trimLeft: true }, background.description));
     }
     if (background.steps.length > 0) {
+        if (background.description) {
+            l.append(null);
+        }
         const addGroups = config(options).separateStepGroups;
         if (addGroups) {
             background.useReadableStepKeywords();
