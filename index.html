@@ -2,11 +2,7 @@
 <a href="#gherkin-formatter" id="gherkin-formatter" style="color: inherit; text-decoration: none;">
   <h1>gherkin-formatter</h1>
 </a>
-<p><img src="https://img.shields.io/npm/dw/gherkin-formatter?style=flat-square" alt="Downloads">
-<img src="https://img.shields.io/npm/v/gherkin-formatter?label=version%40npm&style=flat-square" alt="Version@npm">
-<img src="https://img.shields.io/github/package-json/v/gherking/gherkin-formatter/master?label=version%40git&style=flat-square" alt="Version@git">
-<img src="https://img.shields.io/github/workflow/status/gherking/gherkin-formatter/CI/master?label=ci&style=flat-square" alt="CI">
-<img src="https://img.shields.io/github/workflow/status/gherking/gherkin-formatter/Docs/master?label=docs&style=flat-square" alt="Docs"></p>
+<p><img src="https://img.shields.io/npm/dw/gherkin-formatter?style=flat-square" alt="Downloads"> <img src="https://img.shields.io/npm/v/gherkin-formatter?label=version%40npm&style=flat-square" alt="Version@npm"> <img src="https://img.shields.io/github/package-json/v/gherking/gherkin-formatter/master?label=version%40git&style=flat-square" alt="Version@git"> <img src="https://img.shields.io/github/workflow/status/gherking/gherkin-formatter/CI/master?label=ci&style=flat-square" alt="CI"> <img src="https://img.shields.io/github/workflow/status/gherking/gherkin-formatter/Docs/master?label=docs&style=flat-square" alt="Docs"></p>
 <p>Tool to format gherkin-ast model to gherkin string</p>
 
 <a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
@@ -14,16 +10,16 @@
 </a>
 <p>The format function of this package provides a formatted string (gherkin document) from your <a href="https://github.com/gherking/gherkin-ast">AST</a>.</p>
 <p>In TypeScript</p>
-<pre><code class="language-typescript"><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">format</span><span class="hl-1">, </span><span class="hl-2">FormatOptions</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;gherkin-formatter&quot;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">Document</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;gherkin-ast&quot;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">load</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;gherkin-io&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">document</span><span class="hl-1">: </span><span class="hl-6">Document</span><span class="hl-1"> = </span><span class="hl-7">load</span><span class="hl-1">(</span><span class="hl-3">&quot;./test.feature&quot;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">options</span><span class="hl-1">: </span><span class="hl-6">FormatOptions</span><span class="hl-1"> = {</span><span class="hl-2">separateStepGroups :</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1">};</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-7">format</span><span class="hl-1">(</span><span class="hl-2">document</span><span class="hl-1">, </span><span class="hl-2">options</span><span class="hl-1">));</span><br/><span class="hl-8">// Feature: Test Feature</span><br/><span class="hl-8">//</span><br/><span class="hl-8">//   As a user...</span>
+<pre><code class="language-typescript"><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">format</span><span class="hl-1">, </span><span class="hl-2">FormatOptions</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;gherkin-formatter&quot;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">Document</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;gherkin-ast&quot;</span><span class="hl-1">;</span><br/><span class="hl-0">import</span><span class="hl-1"> {</span><span class="hl-2">read</span><span class="hl-1">} </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;gherkin-io&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">document</span><span class="hl-1">: </span><span class="hl-6">Document</span><span class="hl-1">[] = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-7">read</span><span class="hl-1">(</span><span class="hl-3">&quot;./test.feature&quot;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">options</span><span class="hl-1">: </span><span class="hl-6">FormatOptions</span><span class="hl-1"> = {</span><span class="hl-2">separateStepGroups :</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1">};</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-7">format</span><span class="hl-1">(</span><span class="hl-2">document</span><span class="hl-1">[</span><span class="hl-8">0</span><span class="hl-1">], </span><span class="hl-2">options</span><span class="hl-1">));</span><br/><span class="hl-9">// Feature: Test Feature</span><br/><span class="hl-9">//</span><br/><span class="hl-9">//   As a user...</span>
 </code></pre>
 <p>In JavaScript</p>
-<pre><code class="language-javascript"><span class="hl-4">const</span><span class="hl-1"> {</span><span class="hl-5">format</span><span class="hl-1">, </span><span class="hl-5">FormatOptions</span><span class="hl-1">} = </span><span class="hl-7">require</span><span class="hl-1">(</span><span class="hl-3">&quot;gherkin-formatter&quot;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> {</span><span class="hl-5">Document</span><span class="hl-1">} = </span><span class="hl-7">require</span><span class="hl-1">(</span><span class="hl-3">&quot;gherkin-ast&quot;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> {</span><span class="hl-5">load</span><span class="hl-1">} = </span><span class="hl-7">require</span><span class="hl-1">(</span><span class="hl-3">&quot;gherkin-io&quot;</span><span class="hl-1">);</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">document</span><span class="hl-1"> = </span><span class="hl-7">load</span><span class="hl-1">(</span><span class="hl-3">&quot;./test.feature&quot;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">options</span><span class="hl-1"> = {</span><span class="hl-2">separateStepGroups :</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1">};</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-7">format</span><span class="hl-1">(</span><span class="hl-2">document</span><span class="hl-1">, </span><span class="hl-2">options</span><span class="hl-1">));</span><br/><span class="hl-8">// Feature: Test Feature</span><br/><span class="hl-8">//</span><br/><span class="hl-8">//   As a user...</span>
+<pre><code class="language-javascript"><span class="hl-4">const</span><span class="hl-1"> {</span><span class="hl-5">format</span><span class="hl-1">, </span><span class="hl-5">FormatOptions</span><span class="hl-1">} = </span><span class="hl-7">require</span><span class="hl-1">(</span><span class="hl-3">&quot;gherkin-formatter&quot;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> {</span><span class="hl-5">Document</span><span class="hl-1">} = </span><span class="hl-7">require</span><span class="hl-1">(</span><span class="hl-3">&quot;gherkin-ast&quot;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> {</span><span class="hl-5">read</span><span class="hl-1">} = </span><span class="hl-7">require</span><span class="hl-1">(</span><span class="hl-3">&quot;gherkin-io&quot;</span><span class="hl-1">);</span><br/><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">document</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-7">read</span><span class="hl-1">(</span><span class="hl-3">&quot;./test.feature&quot;</span><span class="hl-1">);</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">options</span><span class="hl-1"> = {</span><br/><span class="hl-1">    </span><span class="hl-2">separateStepGroups:</span><span class="hl-1"> </span><span class="hl-4">false</span><br/><span class="hl-1">};</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-7">log</span><span class="hl-1">(</span><span class="hl-7">format</span><span class="hl-1">(</span><span class="hl-2">document</span><span class="hl-1">[</span><span class="hl-8">0</span><span class="hl-1">], </span><span class="hl-2">options</span><span class="hl-1">));</span><br/><span class="hl-9">// Feature: Test Feature</span><br/><span class="hl-9">//</span><br/><span class="hl-9">//   As a user...</span>
 </code></pre>
 
 <a href="#configuration---formatconfig" id="configuration---formatconfig" style="color: inherit; text-decoration: none;">
   <h3>Configuration - <code>FormatConfig</code></h3>
 </a>
-<p>By passing an <code>FormatConfig</code> object to format method (or other Ast type methods where it&#39;s applicable) it can be set, how feature file text is rendered.</p>
+<p>Passing a <code>FormatConfig</code> object to format method (or other Ast type methods where it&#39;s applicable), how feature file text is rendered can be set.</p>
 <table>
 <thead>
 <tr>
@@ -34,8 +30,8 @@
 </thead>
 <tbody><tr>
 <td align="left"><code>oneTagPerLine</code></td>
-<td align="left">Should tags rendered separately, one by line?</td>
-<td align="left"><code>false</code>, i.e. all tag of a scenario, feature, etc will be rendered in the same line</td>
+<td align="left">Should the tags be rendered separately, one by line?</td>
+<td align="left"><code>false</code>, i.e., all tags of a scenario, feature, etc. will be rendered in the same line</td>
 </tr>
 <tr>
 <td align="left"><code>separateStepGroups</code></td>
@@ -45,18 +41,25 @@
 <tr>
 <td align="left"><code>compact</code></td>
 <td align="left">Should empty lines be skipped, removed from the result?</td>
-<td align="left"><code>false</code>, i.e. there will be empty lines in appropriate places</td>
+<td align="left"><code>false</code>, i.e., there will be empty lines in appropriate places</td>
 </tr>
 <tr>
 <td align="left"><code>lineBreak</code></td>
 <td align="left">The line break character(s).</td>
-<td align="left"><code>\n</code>, i.e. it uses Unix line break, to set Windows style, set <code>\r\n</code></td>
+<td align="left"><code>null</code>, i.e., it will determine the line-break based on the platform</td>
 </tr>
 <tr>
 <td align="left"><code>indentation</code></td>
 <td align="left">The indentation character(s).</td>
-<td align="left"><code>&#39;  &#39;</code>, i.e. it uses two space character to add indentation where it&#39;s appropriate</td>
+<td align="left"><code>&#39;  &#39;</code>, i.e., it uses two space characters to add indentation where it&#39;s appropriate</td>
 </tr>
 </tbody></table>
+
+<a href="#other" id="other" style="color: inherit; text-decoration: none;">
+  <h2>Other</h2>
+</a>
 <p>For detailed documentation see the <a href="https://gherking.github.io/gherkin-formatter/">TypeDocs documentation</a>.</p>
-</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-interface"><a href="interfaces/FormatOptions.html" class="tsd-kind-icon">Format<wbr/>Options</a></li><li class="tsd-kind-function"><a href="modules.html#format" class="tsd-kind-icon">format</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
+<p>This package uses <a href="https://www.npmjs.com/package/debug">debug</a> for logging, use <code>gherkin-formatter</code> to see debug logs:</p>
+<pre><code class="language-shell"><span class="hl-1">DEBUG=gherkin-formatter* node my-script.js</span>
+</code></pre>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-interface"><a href="interfaces/FormatOptions.html" class="tsd-kind-icon">Format<wbr/>Options</a></li><li class="tsd-kind-function"><a href="modules.html#config" class="tsd-kind-icon">config</a></li><li class="tsd-kind-function"><a href="modules.html#format" class="tsd-kind-icon">format</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
