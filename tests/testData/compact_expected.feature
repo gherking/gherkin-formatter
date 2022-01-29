@@ -16,7 +16,7 @@ Feature: Hello world
     And it should be a then step too
   @tag2 @tag3
   Scenario: Name of scenario
-  Description of the scenario
+    Description of the scenario
     Given this is a given step
     And this is a given step too
     When this is a when step with data table

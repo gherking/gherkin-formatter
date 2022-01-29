@@ -16,12 +16,12 @@ Feature: Hello world
     Then it should be a then step
     And it should be a then step too
 
-  @tagE1
+    @tagE1
     Examples: First examples
       | key    |
       | value1 |
 
-  @tagE2
+    @tagE2
     Examples: Second examples
       | key    |
       | value2 |

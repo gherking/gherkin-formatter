@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3 - 2022-01-24
+
+Fix for the indentation issue
+
 ## 1.0.2 - 2022-01-10
 
 Fix for the "colors issue"
