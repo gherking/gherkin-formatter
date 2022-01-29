@@ -18,6 +18,5 @@ export function format(step: Step): string {
     if (step.dataTable) {
         l.append(lines(formatDataTable(step.dataTable)));
     }
-    // console.log({ step: l.toString() })
     return l.toString();
 }
