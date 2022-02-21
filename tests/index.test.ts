@@ -1,6 +1,7 @@
 import * as fs from "fs";
-import { Document, Feature } from "gherkin-ast";
+import { Background, Comment, DocString, Document, Examples, Feature, Rule, Scenario, Step, TableCell, TableRow, Tag } from "gherkin-ast";
 import { read } from "gherkin-io";
+import { setDefaultOptions, splitToLines } from "lines-builder";
 import * as path from "path";
 import { format } from "../src";
 import { format as formatBackground } from "../src/formatters/backgroundFormatter";
@@ -29,6 +30,8 @@ describe("gherkin-formatter", () => {
   beforeAll(async () => {
     toFormat.base = await parse("base");
     expected.base = readFile("base");
+    toFormat.hu = await parse("hu");
+    expected.hu = readFile("hu");
     toFormat.background = await parse("background");
     expected.background = readFile("background");
     toFormat.emptyFeature = await parse("emptyFeature_toParse");
@@ -43,89 +46,354 @@ describe("gherkin-formatter", () => {
     expected.compact = readFile("compact_expected");
   });
 
-  it("should format simple document", () => {
-    expect(format(toFormat.base[0]).split(/\r?\n/g)).toEqual(expected.base.split(/\r?\n/g));
+  test("should format simple document", () => {
+    expect(splitToLines(format(toFormat.base[0]))).toEqual(splitToLines(expected.base));
   });
-  it("should throw error if the given object is not a GherkinDocument", () => {
+
+  test("should format localized document", () => {
+    expect(splitToLines(format(toFormat.hu[0]))).toEqual(splitToLines(expected.hu));
+  });
+
+  test("should throw error if the given object is not a GherkinDocument", () => {
     const feature = new Feature("S1", "S2", "S3");
     expect(() => format({ uri: "string", feature } as Document)).toThrow(/The passed object is not a GherkinDocument!/);
   });
-  it("should format background without step but with description", () => {
-    expect(format(toFormat.background[0]).split(/\r?\n/g)).toEqual(expected.background.split(/\r?\n/g));
+
+  test("should format background without step but with description", () => {
+    expect(splitToLines(format(toFormat.background[0]))).toEqual(splitToLines(expected.background));
   });
-  it("should format feature without elements or description", () => {
-    expect(format(toFormat.emptyFeature[0]).split(/\r?\n/g)).toEqual(expected.emptyFeature.split(/\r?\n/g));
+
+  test("should format feature without elements or description", () => {
+    expect(splitToLines(format(toFormat.emptyFeature[0]))).toEqual(splitToLines(expected.emptyFeature));
   });
-  it("should format rule without elements or description", () => {
-    expect(format(toFormat.emptyRule[0]).split(/\r?\n/g)).toEqual(expected.emptyRule.split(/\r?\n/g));
+
+  test("should format rule without elements or description", () => {
+    expect(splitToLines(format(toFormat.emptyRule[0]))).toEqual(splitToLines(expected.emptyRule));
   });
-  it("should break tags to new lines", () => {
+
+  test("should break tags to new lines", () => {
     // tslint:disable-next-line:max-line-length
-    expect(format(toFormat.oneTagPerLine[0], { oneTagPerLine: true }).split(/\r?\n/g)).toEqual(expected.oneTagPerLine.split(/\r?\n/g));
+    expect(splitToLines(format(toFormat.oneTagPerLine[0], { oneTagPerLine: true }))).toEqual(splitToLines(expected.oneTagPerLine));
   });
-  it("should separate step groups", () => {
+
+  test("should separate step groups", () => {
     // tslint:disable-next-line:max-line-length
-    expect(format(toFormat.separateStepGroups[0], { separateStepGroups: true }).split(/\r?\n/g)).toEqual(expected.separateStepGroups.split(/\r?\n/g));
+    expect(splitToLines(format(toFormat.separateStepGroups[0], { separateStepGroups: true }))).toEqual(splitToLines(expected.separateStepGroups));
   });
-  it("should skip empty lines", () => {
-    expect(format(toFormat.compact[0], { compact: true }).split(/\r?\n/g)).toEqual(expected.compact.split(/\r?\n/g));
+
+  test("should skip empty lines", () => {
+    expect(splitToLines(format(toFormat.compact[0], { compact: true }))).toEqual(splitToLines(expected.compact));
   });
+
   test("should handle missing document", () => {
     // @ts-ignore
     expect(() => format()).toThrow("Document must be set!");
   });
+
   describe("formatters", () => {
-    test("backgroundFormatter > should handle missing background", () => {
-      // @ts-ignore
-      expect(() => formatBackground()).toThrow("Background must be set!");
+    beforeAll(() => {
+      setDefaultOptions({ skipEmpty: false });
     });
-    test("dataTableFormatter > should handle missing dataTable", () => {
-      // @ts-ignore
-      expect(() => formatDataTable()).toThrow("DataTable must be set!");
+
+    describe("backgroundFormatter", () => {
+      test("should handle missing background", () => {
+        // @ts-ignore
+        expect(() => formatBackground()).toThrow("Background must be set!");
+      });
+
+      test("should handle comments", () => {
+        const background = new Background("Background", "name", "description\nsecond line");
+        background.descriptionComment = new Comment("# description\n# comment");
+        background.preceedingComment = new Comment("# preceeding\n# comment");
+        background.steps = [new Step("Given", "step")];
+        const result = formatBackground(background);
+        expect(splitToLines(result)).toEqual([
+          "# preceeding",
+          "# comment",
+          "Background: name",
+          "  description",
+          "  second line",
+          "",
+          "  # description",
+          "  # comment",
+          "",
+          "  Given step"
+        ]);
+      });
     });
-    test("docStringFormatter > should handle missing docString", () => {
-      // @ts-ignore
-      expect(() => formatDocString()).toThrow("DocString must be set!");
+
+    describe("dataTableFormatter", () => {
+      test("should handle missing dataTable", () => {
+        // @ts-ignore
+        expect(() => formatDataTable()).toThrow("DataTable must be set!");
+      });
     });
-    test("examplesFormatter > should handle missing examples", () => {
-      // @ts-ignore
-      expect(() => formatExamples()).toThrow("Examples must be set!");
+
+    describe("docStringFormatter", () => {
+      test("should handle missing docString", () => {
+        // @ts-ignore
+        expect(() => formatDocString()).toThrow("DocString must be set!");
+      });
+
+      test("should handle comments", () => {
+        const docString = new DocString("first line\nsecond line", "```", "markdown");
+        docString.comment = new Comment("# first line of comment\n# second line of comment");
+        const result = formatDocString(docString);
+        expect(splitToLines(result)).toEqual([
+          "# first line of comment",
+          "# second line of comment",
+          "```markdown",
+          "first line",
+          "second line",
+          "```"
+        ]);
+      });
     });
-    test("featureFormatter > should handle missing Feature", () => {
-      // @ts-ignore
-      expect(() => formatFeature()).toThrow("Feature must be set!");
+
+    describe("examplesFormatter", () => {
+      test("should handle missing examples", () => {
+        // @ts-ignore
+        expect(() => formatExamples()).toThrow("Examples must be set!");
+      });
+
+      test("should handle comments", () => {
+        const examples = new Examples("Examples", "name");
+        examples.tagComment = new Comment("# tag\n# comment");
+        examples.preceedingComment = new Comment("# preceeding\n# comment");
+        examples.tags = [new Tag("suite", "smoke")];
+        examples.header = new TableRow([new TableCell("a")]);
+        examples.header.comment = new Comment("# header");
+        examples.body = [new TableRow([new TableCell("aaaa")])];
+        examples.body[0].comment = new Comment("# row");
+        const result = formatExamples(examples);
+        expect(splitToLines(result)).toEqual([
+          "# tag",
+          "# comment",
+          "@suite(smoke)",
+          "# preceeding",
+          "# comment",
+          "Examples: name",
+          "  # header",
+          "  | a    |",
+          "  # row",
+          "  | aaaa |"
+        ]);
+      });
     });
-    test("gherkinDocumentFormatter > should handle missing document", () => {
-      // @ts-ignore
-      expect(() => formatGherkinDocument()).toThrow("Document must be set!");
+
+    describe("featureFormatter", () => {
+      test("should handle missing Feature", () => {
+        // @ts-ignore
+        expect(() => formatFeature()).toThrow("Feature must be set!");
+      });
+
+      test("should handle comments", () => {
+        const feature = new Feature("Jellemző", "name", "description", "hu");
+        feature.descriptionComment = new Comment("# description\n# comment");
+        feature.tagComment = new Comment("# tag\n# comment");
+        feature.preceedingComment = new Comment("# preceeding\n# comment");
+        feature.elements = [new Background("Háttér", "name", "description")];
+        feature.tags = [new Tag("suite", "smoke")];
+        feature.language = 'hu';
+        const result = formatFeature(feature);
+        expect(splitToLines(result)).toEqual([
+          "# language: hu",
+          "# tag",
+          "# comment",
+          "@suite(smoke)",
+          "# preceeding",
+          "# comment",
+          "Jellemző: name",
+          "  description",
+          "",
+          "  # description",
+          "  # comment",
+          "",
+          "  Háttér: name",
+          "    description",
+        ]);
+      });
     });
-    test("ruleFormatter > should handle missing rule", () => {
-      // @ts-ignore
-      expect(() => formatRule()).toThrow("Rule must be set!");
+
+    describe("gherkinDocumentFormatter", () => {
+      test("should handle missing document", () => {
+        // @ts-ignore
+        expect(() => formatGherkinDocument()).toThrow("Document must be set!");
+      });
+
+      test("should handle comments", () => {
+        const document = new Document("uri", new Feature("Jellemző", "name", "description", "hu"));
+        document.startComment = new Comment("# start\n# comment");
+        document.endComment = new Comment("# end\n# comment");
+        const result = formatGherkinDocument(document);
+        expect(splitToLines(result)).toEqual([
+          "# start",
+          "# comment",
+          "",
+          "# language: hu",
+          "Jellemző: name",
+          "  description",
+          "",
+          "# end",
+          "# comment"
+        ]);
+      });
     });
-    test("scenarioFormatter > should handle missing scenario", () => {
-      // @ts-ignore
-      expect(() => formatScenario()).toThrow("Scenario must be set!");
+
+    describe("ruleFormatter", () => {
+      test("should handle missing rule", () => {
+        // @ts-ignore
+        expect(() => formatRule()).toThrow("Rule must be set!");
+      });
+
+      test("should handle comments", () => {
+        const rule = new Rule("Rule", "name", "description");
+        rule.tagComment = new Comment("# tag\n# comment");
+        rule.preceedingComment = new Comment("# preceeding\n# comment");
+        rule.descriptionComment = new Comment("# description\n# comment");
+        rule.elements = [new Background("Background", "name", "description")];
+        rule.tags = [new Tag("suite", "smoke")];
+        const result = formatRule(rule);
+        expect(splitToLines(result)).toEqual([
+          "# tag",
+          "# comment",
+          "@suite(smoke)",
+          "# preceeding",
+          "# comment",
+          "Rule: name",
+          "  description",
+          "",
+          "  # description",
+          "  # comment",
+          "",
+          "  Background: name",
+          "    description",
+        ]);
+      });
     });
-    test("scenarioOutlineFormatter > should handle missing scenario outline", () => {
-      // @ts-ignore
-      expect(() => formatScenarioOutline()).toThrow("ScenarioOutline must be set!");
+
+    describe("scenarioFormatter", () => {
+      test("should handle missing scenario", () => {
+        // @ts-ignore
+        expect(() => formatScenario()).toThrow("Scenario must be set!");
+      });
+
+      test("should handle comments", () => {
+        const scenario = new Scenario("Scenario", "name", "description");
+        scenario.tagComment = new Comment("# tag\n# comment");
+        scenario.preceedingComment = new Comment("# preceeding\n# comment");
+        scenario.descriptionComment = new Comment("# description\n# comment");
+        scenario.tags = [new Tag("suite", "smoke")];
+        scenario.steps = [new Step("Given", "step")];
+        scenario.steps[0].comment = new Comment("# step");
+        const result = formatScenario(scenario);
+        expect(splitToLines(result)).toEqual([
+          "# tag",
+          "# comment",
+          "@suite(smoke)",
+          "# preceeding",
+          "# comment",
+          "Scenario: name",
+          "  description",
+          "",
+          "  # description",
+          "  # comment",
+          "",
+          "  # step",
+          "  Given step"
+        ]);
+      });
     });
-    test("stepFormatter > should handle missing step", () => {
-      // @ts-ignore
-      expect(() => formatStep()).toThrow("Step must be set!");
+
+    describe("scenarioOutlineFormatter", () => {
+      test("should handle missing scenario outline", () => {
+        // @ts-ignore
+        expect(() => formatScenarioOutline()).toThrow("ScenarioOutline must be set!");
+      });
     });
-    test("tableCellFormatter > should handle missing table cell", () => {
-      // @ts-ignore
-      expect(() => formatTableCell()).toThrow("TableCell must be set!");
+
+    describe("stepFormatter", () => {
+      test("should handle missing step", () => {
+        // @ts-ignore
+        expect(() => formatStep()).toThrow("Step must be set!");
+      });
     });
-    test("tableRowsFormatter > should handle missing table rows", () => {
-      // @ts-ignore
-      expect(() => formatTableRows()).toThrow("TableRows must be set!");
+
+    describe("tableCellFormatter", () => {
+      test(" > should handle missing table cell", () => {
+        // @ts-ignore
+        expect(() => formatTableCell()).toThrow("TableCell must be set!");
+      });
     });
-    test("tagFormatter > should handle missing tags", () => {
-      // @ts-ignore
-      expect(() => formatTag()).toThrow("Tags must be set!");
+
+    describe("tableRowsFormetter", () => {
+      test("should handle missing table rows", () => {
+        // @ts-ignore
+        expect(() => formatTableRows()).toThrow("TableRows must be set!");
+      });
+
+      test("should handle comments", () => {
+        const rows = [
+          new TableRow([
+            new TableCell("a"),
+            new TableCell("b"),
+          ]),
+          new TableRow([
+            new TableCell("aaa"),
+            new TableCell("bbbbb"),
+          ]),
+        ];
+        rows[1].comment = new Comment("# it is a comment\n# a multiline one");
+        const result = formatTableRows(rows);
+        expect(splitToLines(result)).toEqual(["| a   | b     |", "# it is a comment", "# a multiline one", "| aaa | bbbbb |"]);
+      });
+    })
+
+    describe("tagFormatter", () => {
+      let tags: Tag[];
+
+      beforeEach(() => {
+        tags = [
+          new Tag("a", "1"),
+          new Tag("a", "2"),
+          new Tag("a", "3"),
+        ];
+      })
+      test("should handle missing tags", () => {
+        // @ts-ignore
+        expect(() => formatTag()).toThrow("Tags must be set!");
+      });
+
+      test("should format single line without comments", () => {
+        expect(splitToLines(formatTag(tags, { oneTagPerLine: false }))).toEqual(["@a(1) @a(2) @a(3)"]);
+      });
+
+      test("should format multi line without comments", () => {
+        expect(splitToLines(formatTag(tags, { oneTagPerLine: true }))).toEqual(["@a(1)", "@a(2)", "@a(3)"]);
+      });
+
+      test("should format single line with comments", () => {
+        tags[0].comment = new Comment("# 1");
+        tags[1].comment = new Comment("# 2");
+        expect(splitToLines(formatTag(tags, { oneTagPerLine: false }))).toEqual([
+          "# 1",
+          "@a(1)",
+          "# 2",
+          "@a(2) @a(3)"
+        ]);
+      });
+
+      test("should format multi line with comments", () => {
+        tags[0].comment = new Comment("# 1");
+        tags[1].comment = new Comment("# 2");
+        expect(splitToLines(formatTag(tags, { oneTagPerLine: true }))).toEqual([
+          "# 1",
+          "@a(1)",
+          "# 2",
+          "@a(2)",
+          "@a(3)"
+        ]);
+      });
     });
   });
 });

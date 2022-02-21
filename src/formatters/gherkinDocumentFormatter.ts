@@ -1,4 +1,5 @@
 import { Document } from "gherkin-ast";
+import { lines } from "lines-builder";
 import { getDebugger } from "../debug";
 import { FormatOptions } from "../index";
 import { format as formatFeature } from "./featureFormatter";
@@ -10,5 +11,12 @@ export function format(document: Document, options?: Partial<FormatOptions>): st
     if (!document) {
         throw new Error("Document must be set!");
     }
-    return formatFeature(document.feature, options);
+    const l = lines(formatFeature(document.feature, options));
+    if (document.startComment) {
+        l.prepend(document.startComment.text, null);
+    }
+    if (document.endComment) {
+        l.append(null, document.endComment.text);
+    }
+    return l.toString();
 }

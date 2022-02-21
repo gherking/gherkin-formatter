@@ -12,6 +12,9 @@ export function format(step: Step): string {
         throw new Error("Step must be set!");
     }
     const l = lines(`${step.keyword} ${step.text}`);
+    if (step.comment) {
+        l.prepend(step.comment.text);
+    }
     if (step.docString) {
         l.append(lines(formatDocString(step.docString)));
     }

@@ -16,11 +16,20 @@ export function format(feature: Feature, options?: Partial<FormatOptions>): stri
         throw new Error("Feature must be set!");
     }
     const l = lines(`${feature.keyword}: ${feature.name}`);
+    if (feature.preceedingComment) {
+        l.prepend(feature.preceedingComment.text);
+    }
     if (feature.tags.length > 0) {
         l.prepend(formatTag(feature.tags, options));
     }
+    if (feature.tagComment) {
+        l.prepend(feature.tagComment.text);
+    }
     if (feature.description) {
         l.append(lines({ trimLeft: true }, feature.description));
+    }
+    if (feature.descriptionComment) {
+        l.append(lines(null, feature.descriptionComment.text));
     }
     if (feature.elements.length > 0) {
         feature.elements.forEach((item: Scenario | ScenarioOutline | Background | Rule) => {
@@ -34,6 +43,9 @@ export function format(feature: Feature, options?: Partial<FormatOptions>): stri
                 l.append(null, lines(formatRule(item, options)));
             }
         });
+    }
+    if (feature.language !== 'en') {
+        l.prepend(`# language: ${feature.language}`);
     }
     return l.toString();
 }

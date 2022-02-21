@@ -12,11 +12,17 @@ export function format(background: Background, options?: Partial<FormatOptions>)
         throw new Error("Background must be set!");
     }
     const l = lines(`${background.keyword}: ${background.name}`);
+    if (background.preceedingComment) {
+        l.prepend(background.preceedingComment.text);
+    }
     if (background.description) {
         l.append(lines({ trimLeft: true }, background.description));
     }
+    if (background.descriptionComment) {
+        l.append(null, lines(background.descriptionComment.text));
+    }
     if (background.steps.length > 0) {
-        if (background.description) {
+        if (background.description || background.descriptionComment) {
             l.append(null);
         }
         const addGroups = config(options).separateStepGroups;
