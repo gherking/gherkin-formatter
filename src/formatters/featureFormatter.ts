@@ -16,8 +16,8 @@ export function format(feature: Feature, options?: Partial<FormatOptions>): stri
         throw new Error("Feature must be set!");
     }
     const l = lines(`${feature.keyword}: ${feature.name}`);
-    if (feature.preceedingComment) {
-        l.prepend(feature.preceedingComment.text);
+    if (feature.precedingComment) {
+        l.prepend(feature.precedingComment.text);
     }
     if (feature.tags.length > 0) {
         l.prepend(formatTag(feature.tags, options));

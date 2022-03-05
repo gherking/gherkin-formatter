@@ -13,8 +13,8 @@ export function format(examples: Examples, options?: Partial<FormatOptions>): st
         throw new Error("Examples must be set!");
     }
     const l = lines(`${examples.keyword}: ${examples.name}`);
-    if (examples.preceedingComment) {
-        l.prepend(examples.preceedingComment.text);
+    if (examples.precedingComment) {
+        l.prepend(examples.precedingComment.text);
     }
     if (examples.tags.length > 0) {
         l.prepend(formatTag(examples.tags, options));

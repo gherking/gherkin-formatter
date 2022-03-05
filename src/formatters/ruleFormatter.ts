@@ -15,8 +15,8 @@ export function format(rule: Rule, options?: Partial<FormatOptions>): string {
         throw new Error("Rule must be set!");
     }
     const l = lines(`${rule.keyword}: ${rule.name}`);
-    if (rule.preceedingComment) {
-        l.prepend(rule.preceedingComment.text);
+    if (rule.precedingComment) {
+        l.prepend(rule.precedingComment.text);
     }
     if (rule.tags.length > 0) {
         l.prepend(formatTag(rule.tags, options));

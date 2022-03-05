@@ -12,8 +12,8 @@ export function format(background: Background, options?: Partial<FormatOptions>)
         throw new Error("Background must be set!");
     }
     const l = lines(`${background.keyword}: ${background.name}`);
-    if (background.preceedingComment) {
-        l.prepend(background.preceedingComment.text);
+    if (background.precedingComment) {
+        l.prepend(background.precedingComment.text);
     }
     if (background.description) {
         l.append(lines({ trimLeft: true }, background.description));

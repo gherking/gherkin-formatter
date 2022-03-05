@@ -13,8 +13,8 @@ export function format(scenario: Scenario, options?: Partial<FormatOptions>): st
         throw new Error("Scenario must be set!");
     }
     const l = lines(`${scenario.keyword}: ${scenario.name}`);
-    if (scenario.preceedingComment) {
-        l.prepend(scenario.preceedingComment.text);
+    if (scenario.precedingComment) {
+        l.prepend(scenario.precedingComment.text);
     }
     if (scenario.tags.length > 0) {
         l.prepend(formatTag(scenario.tags, options));
