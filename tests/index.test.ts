@@ -326,7 +326,7 @@ describe("gherkin-formatter", () => {
       });
     });
 
-    describe("tableRowsFormetter", () => {
+    describe("tableRowsFormatter", () => {
       test("should handle missing table rows", () => {
         // @ts-ignore
         expect(() => formatTableRows()).toThrow("TableRows must be set!");
