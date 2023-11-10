@@ -1,5 +1,19 @@
 import * as fs from "fs";
-import { Background, Comment, DocString, Document, Examples, Feature, Rule, Scenario, Step, TableCell, TableRow, Tag } from "gherkin-ast";
+import {
+  Background,
+  Comment,
+  DocString,
+  Document,
+  Examples,
+  Feature,
+  Rule,
+  Scenario,
+  Step,
+  TableCell,
+  TableRow,
+  Tag,
+  TagFormat
+} from "gherkin-ast";
 import { read } from "gherkin-io";
 import { setDefaultOptions, splitToLines } from "lines-builder";
 import * as path from "path";
@@ -22,10 +36,8 @@ const readFile = (fileName: string) => fs.readFileSync(path.resolve(`tests/testD
 const parse = async (fileName: string) => await read(`tests/testData/${fileName}.feature`);
 
 describe("gherkin-formatter", () => {
-  // tslint:disable-next-line: no-any
-  const toFormat: any = {};
-  // tslint:disable-next-line: no-any
-  const expected: any = {};
+  const toFormat: Record<string, Document[]> = {};
+  const expected: Record<string, string> = {};
 
   beforeAll(async () => {
     toFormat.base = await parse("base");
@@ -73,7 +85,7 @@ describe("gherkin-formatter", () => {
 
   test("should break tags to new lines", () => {
     // tslint:disable-next-line:max-line-length
-    expect(splitToLines(format(toFormat.oneTagPerLine[0], { oneTagPerLine: true }))).toEqual(splitToLines(expected.oneTagPerLine));
+    expect(splitToLines(format(toFormat.oneTagPerLine[0], { oneTagPerLine: true, tagFormat: TagFormat.ASSIGNMENT }))).toEqual(splitToLines(expected.oneTagPerLine));
   });
 
   test("should separate step groups", () => {

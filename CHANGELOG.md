@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0  2023-11-11
+
+### Added
+
+- Upgraded to `gherkin-ast@3.4.0` to support tag formats
+- Updated format options with `tagFormat`
+
 ## 1.1.0 - 2022-02-22
 
 ### Added

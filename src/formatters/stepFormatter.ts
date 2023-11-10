@@ -7,19 +7,19 @@ import { format as formatDocString } from "./docStringFormatter";
 const debug = getDebugger("stepFormatter");
 
 export function format(step: Step): string {
-    debug("format(step: %s)", step?.constructor.name);
-    if (!step) {
-        throw new Error("Step must be set!");
-    }
-    const l = lines(`${step.keyword} ${step.text}`);
-    if (step.comment) {
-        l.prepend(step.comment.text);
-    }
-    if (step.docString) {
-        l.append(lines(formatDocString(step.docString)));
-    }
-    if (step.dataTable) {
-        l.append(lines(formatDataTable(step.dataTable)));
-    }
-    return l.toString();
+  debug("format(step: %s)", step?.constructor.name);
+  if (!step) {
+    throw new Error("Step must be set!");
+  }
+  const l = lines(`${step.keyword} ${step.text}`);
+  if (step.comment) {
+    l.prepend(step.comment.text);
+  }
+  if (step.docString) {
+    l.append(lines(formatDocString(step.docString)));
+  }
+  if (step.dataTable) {
+    l.append(lines(formatDataTable(step.dataTable)));
+  }
+  return l.toString();
 }
