@@ -31,7 +31,6 @@ export const config = (options: Partial<FormatOptions>): FormatOptions => {
   };
 };
 
-// tslint:disable-next-line:no-any
 export const format = (document: Document, options?: Partial<FormatOptions>): string => {
   debug("format(document: %s, options: %o)", document?.constructor.name, options);
   if (!document) {

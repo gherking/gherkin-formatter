@@ -68,7 +68,10 @@ describe("gherkin-formatter", () => {
 
   test("should throw error if the given object is not a GherkinDocument", () => {
     const feature = new Feature("S1", "S2", "S3");
-    expect(() => format({ uri: "string", feature } as Document)).toThrow(/The passed object is not a GherkinDocument!/);
+    expect(() => format({
+      uri: "string",
+      feature
+    } as Document)).toThrow(/The passed object is not a GherkinDocument!/);
   });
 
   test("should format background without step but with description", () => {
@@ -84,17 +87,18 @@ describe("gherkin-formatter", () => {
   });
 
   test("should break tags to new lines", () => {
-    // tslint:disable-next-line:max-line-length
-    expect(splitToLines(format(toFormat.oneTagPerLine[0], { oneTagPerLine: true, tagFormat: TagFormat.ASSIGNMENT }))).toEqual(splitToLines(expected.oneTagPerLine));
+    expect(splitToLines(format(toFormat.oneTagPerLine[0], {
+      oneTagPerLine: true,
+      tagFormat: TagFormat.ASSIGNMENT
+    }))).toEqual(splitToLines(expected.oneTagPerLine));
   });
 
   test("should separate step groups", () => {
-    // tslint:disable-next-line:max-line-length
-    expect(splitToLines(format(toFormat.separateStepGroups[0], { separateStepGroups: true }))).toEqual(splitToLines(expected.separateStepGroups));
+    expect(splitToLines(format(toFormat.separateStepGroups[0], {separateStepGroups: true}))).toEqual(splitToLines(expected.separateStepGroups));
   });
 
   test("should skip empty lines", () => {
-    expect(splitToLines(format(toFormat.compact[0], { compact: true }))).toEqual(splitToLines(expected.compact));
+    expect(splitToLines(format(toFormat.compact[0], {compact: true}))).toEqual(splitToLines(expected.compact));
   });
 
   test("should handle missing document", () => {
@@ -104,7 +108,7 @@ describe("gherkin-formatter", () => {
 
   describe("formatters", () => {
     beforeAll(() => {
-      setDefaultOptions({ skipEmpty: false });
+      setDefaultOptions({skipEmpty: false});
     });
 
     describe("backgroundFormatter", () => {
@@ -377,17 +381,17 @@ describe("gherkin-formatter", () => {
       });
 
       test("should format single line without comments", () => {
-        expect(splitToLines(formatTag(tags, { oneTagPerLine: false }))).toEqual(["@a(1) @a(2) @a(3)"]);
+        expect(splitToLines(formatTag(tags, {oneTagPerLine: false}))).toEqual(["@a(1) @a(2) @a(3)"]);
       });
 
       test("should format multi line without comments", () => {
-        expect(splitToLines(formatTag(tags, { oneTagPerLine: true }))).toEqual(["@a(1)", "@a(2)", "@a(3)"]);
+        expect(splitToLines(formatTag(tags, {oneTagPerLine: true}))).toEqual(["@a(1)", "@a(2)", "@a(3)"]);
       });
 
       test("should format single line with comments", () => {
         tags[0].comment = new Comment("# 1");
         tags[1].comment = new Comment("# 2");
-        expect(splitToLines(formatTag(tags, { oneTagPerLine: false }))).toEqual([
+        expect(splitToLines(formatTag(tags, {oneTagPerLine: false}))).toEqual([
           "# 1",
           "@a(1)",
           "# 2",
@@ -398,7 +402,7 @@ describe("gherkin-formatter", () => {
       test("should format multi line with comments", () => {
         tags[0].comment = new Comment("# 1");
         tags[1].comment = new Comment("# 2");
-        expect(splitToLines(formatTag(tags, { oneTagPerLine: true }))).toEqual([
+        expect(splitToLines(formatTag(tags, {oneTagPerLine: true}))).toEqual([
           "# 1",
           "@a(1)",
           "# 2",
