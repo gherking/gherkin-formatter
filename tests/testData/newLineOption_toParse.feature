@@ -5,7 +5,7 @@ Feature: Hello world
   So that I am smth
 
   @tag1
-  @tag2 @tag(3)
+  @tag2 @tag=3
   Scenario Outline: Name of background <key>
     Given this is a given step
     And this is a given step too

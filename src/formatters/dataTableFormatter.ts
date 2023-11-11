@@ -6,9 +6,9 @@ import { format as formatTableRows } from "./tableRowFormatter";
 const debug = getDebugger("dataTableFormatter");
 
 export function format(dataTable: DataTable): string {
-    debug("format(dataTable: %s)", dataTable?.constructor.name);
-    if (!dataTable) {
-        throw new Error("DataTable must be set!");
-    }
-    return lines(formatTableRows(dataTable.rows)).toString();
+  debug("format(dataTable: %s)", dataTable?.constructor.name);
+  if (!dataTable) {
+    throw new Error("DataTable must be set!");
+  }
+  return lines(formatTableRows(dataTable.rows)).toString();
 }

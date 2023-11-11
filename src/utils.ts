@@ -6,28 +6,28 @@ import { getDebugger } from "./debug";
 const debug = getDebugger("utils");
 
 export const table = (data: unknown[][]): string => {
-    debug("table(data: %o)", data);
-    return t.table(data, {
-        border: {
-            topBody: "",
-            topJoin: "",
-            topLeft: "",
-            topRight: "",
+  debug("table(data: %o)", data);
+  return t.table(data, {
+    border: {
+      topBody: "",
+      topJoin: "",
+      topLeft: "",
+      topRight: "",
 
-            bottomBody: "",
-            bottomJoin: "",
-            bottomLeft: "",
-            bottomRight: "",
+      bottomBody: "",
+      bottomJoin: "",
+      bottomLeft: "",
+      bottomRight: "",
 
-            bodyLeft: "|",
-            bodyRight: "|",
-            bodyJoin: "|",
+      bodyLeft: "|",
+      bodyRight: "|",
+      bodyJoin: "|",
 
-            joinBody: "",
-            joinLeft: "",
-            joinRight: "",
-            joinJoin: ""
-        },
-        drawHorizontalLine: () => false,
-    }).trim();
+      joinBody: "",
+      joinLeft: "",
+      joinRight: "",
+      joinJoin: ""
+    },
+    drawHorizontalLine: () => false,
+  }).trim();
 };

@@ -1,0 +1,13 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+      - main
+      - 'feature/**'
+      - 'bugfix/**'
+      - 'hotfix/**'
+  workflow_dispatch:
+jobs:
+  call_npm_package_build:
+    uses: szikszail/workflows/.github/workflows/npm-package-build.yml@v1

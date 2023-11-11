@@ -1,0 +1,12 @@
+name: Docs
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+jobs:
+  call_typedocs_pages:
+    uses: szikszail/workflows/.github/workflows/typedocs-pages.yml@v1
+    with:
+      doc_script: typedoc
