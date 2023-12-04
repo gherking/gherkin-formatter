@@ -1,6 +1,12 @@
 # Changelog
 
-## 1.2.0  2023-11-11
+## 1.2.1 - 2023-11-24
+
+### Fixed
+
+-Fixed issue with undefined and null values ([#87](https://github.com/gherking/gherking/issues/87))
+
+## 1.2.0 - 2023-11-11
 
 ### Added
 
