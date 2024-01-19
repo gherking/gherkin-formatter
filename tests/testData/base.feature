@@ -29,9 +29,9 @@ Feature: Hello world
         | val2 |
         | val3 |
       And this is a when step with data table too
-        | col1 | col2 |
-        | val1 | val2 |
-        | val3 | val4 |
+        | col1 | col2                 |
+        | val1 | val2                 |
+        | val3 | val4 \| val5 \| val6 |
       And this is a when step with doc string
         """
         Hello world
@@ -61,9 +61,9 @@ Feature: Hello world
 
       @tagE1
       Examples: First examples
-        | key    | key2   |
-        | value1 | value2 |
-        | value3 | value4 |
+        | key    | key2                        |
+        | value1 | value2                      |
+        | value3 | value4 \| value5 \| value 6 |
 
       Examples: Second examples
         | key    |
