@@ -8,5 +8,5 @@ export function format(tableCell: TableCell): string {
   if (!tableCell) {
     throw new Error("TableCell must be set!");
   }
-  return tableCell.value;
+  return tableCell.value.replace(/\|/g, '\\|');
 }
