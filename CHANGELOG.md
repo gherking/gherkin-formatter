@@ -1,10 +1,16 @@
 # Changelog
 
+## 1.2.2 - 2024-01-22
+
+### Fixed
+
+- Fixed issue with escaped pipe in table cell ([#26](https://github.com/gherking/gherkin-formatter/pull/26))
+
 ## 1.2.1 - 2023-11-24
 
 ### Fixed
 
--Fixed issue with undefined and null values ([#87](https://github.com/gherking/gherking/issues/87))
+- Fixed issue with undefined and null values ([#87](https://github.com/gherking/gherking/issues/87))
 
 ## 1.2.0 - 2023-11-11
 

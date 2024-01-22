@@ -429,16 +429,18 @@ describe("gherkin-formatter", () => {
             test("should handle pipes", () => {
                 const rows = [
                     new TableRow([
-                        new TableCell("a"),
+                        new TableCell("a \#"),
                         new TableCell("b"),
                     ]),
                     new TableRow([
                         new TableCell("a | a | a"),
-                        new TableCell("bbbbb"),
+                        new TableCell("b &'\"+!%/=()™£$‹›{[]}\\-_.:,?;@"),
                     ]),
                 ];
                 const result = formatTableRows(rows);
-                expect(splitToLines(result)).toEqual(["| a           | b     |", "| a \\| a \\| a | bbbbb |"]);
+                expect(splitToLines(result)).toEqual([
+                    "| a \\#        | b                              |",
+                    "| a \\| a \\| a | b &'\"+!%/=()™£$‹›{[]}\\-_.:,?;@ |"]);
             });
         });
 
